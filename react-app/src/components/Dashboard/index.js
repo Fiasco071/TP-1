@@ -1,5 +1,5 @@
 import { useState } from "react"
-import './style.css' 
+import './style.css'
 
 const Dashboard = () => {
 
@@ -23,11 +23,28 @@ const Dashboard = () => {
                     </div>
                 </div>
                 <div className="dashb-hdr-fnc-block">
+                    <div className="dashb-hdr-fnc-type-selector">
+                        <select>
+                            <option>Private</option>
+                            <option>Project</option>
+                        </select>
+                    </div>
 
+                    <input type="text" className="search-bar"></input>
+                    <div className="button-blk">
+                        <div className="dashb-hdr-fnc-blck-buttons"></div>
+                        <div className="dashb-hdr-fnc-blck-buttons"></div>
+                        <div className="dashb-hdr-fnc-blck-buttons"></div>
+                    </div>
                 </div>
             </div>
             <div className="dashb-cnt-blck">
+                <div className="viewport-blk">
+                    <div className=""></div>
+                </div>
+                <div className="viewport-blk">
 
+                </div>
             </div>
             <div className="dashb-ftr-blck">
 

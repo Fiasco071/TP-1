@@ -50,4 +50,42 @@
     background-color: brown;
     width: 500px;
     height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
+.dashb-hdr-fnc-blck-buttons {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: bisque;
+}
+
+.dashb-hdr-fnc-type-selector {
+    margin: 0 20px 0 20px;
+}
+
+.search-bar {
+    margin: 0 ;
+    height: 25px;
+    border-radius: 15px;
+    border: 1.5px grey solid;
+}
+
+.button-blk {
+    display: flex;
+    gap: 15px;
+}
+
+.dashb-cnt-blck {
+    display: flex;
+}
+
+.viewport-blk {
+    margin: 5px 10px;
+    width: 49%;
+    height: 580px;
+    background-color: rgb(88, 81, 81);
+}
+
