@@ -1,0 +1,53 @@
+.dashboard {
+    width: 1500px;
+    height: 500px;
+    background-color: grey;
+}
+
+.profile-icon-block {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.dashb-hdr-blck {
+    width: 1500px;
+    height: 100px;
+    padding: 15px 0 15px 0;
+    background-color: rgb(235, 179, 179);
+    display: flex;
+    justify-content: space-between;
+}
+
+.dashb-hdr-profile-block {
+    display: flex;
+    background-color: aqua;
+    padding: 10px 15px;
+    margin-left: 10px;
+}
+
+.profile-option-block {
+    display: flex;
+}
+
+.profile-option-block-text {
+    padding-right: 20px;
+    color: rgb(58, 57, 57);
+    font-weight: bold;
+}
+
+.viewport-option-block {
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.profile-content-block {
+    margin-left: 15px;
+}
+
+.dashb-hdr-fnc-block {
+    background-color: brown;
+    width: 500px;
+    height: 100px;
+}
