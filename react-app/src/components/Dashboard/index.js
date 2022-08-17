@@ -10,7 +10,7 @@ const Dashboard = () => {
 
     const [flag, setFlag] = useState(false)
     let looptime = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-
+    let looptime2 = [1, 1, 1, 1, 1, 1, 1]
 
     return (
         <div className="dashboard">
@@ -98,6 +98,7 @@ const Dashboard = () => {
                             This task is private to you
                         </div>
                         <div className="r-p-task-detail-content-box">
+                            <div className="r-p-task-detail-content-main">
                                 <h1>Task Title 1</h1>
                                 <div>
                                     <div className="task-detail-info-blk">
@@ -116,10 +117,28 @@ const Dashboard = () => {
                                         <p>Description</p>
                                         <p>Add more detail to this task...</p>
                                     </div>
+                                    <div className="task-comment-list-box">
+                                        {looptime2.map(() => (
+                                            <div className="task-comment-bx">
+                                                <div className="cmnt-profile-blk">
+                                                    <div className="profile-icon-block"></div>
+                                                    <p>User One</p>
+                                                </div>
+                                                <p className="cmnt-ctnt-blk">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce augue enim, scelerisque eget mi ut, tristique blandit dui. Quisque pulvinar ligula eget arcu hendrerit dapibus. Duis sodales finibus nunc, eget sodales ligula eges.</p>
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
-                                <div className="task-comment-box">
-                                    
+                            </div>
+                            <div className="task-comment-input-box">
+                                <div className="task-comment-input-box-main">
+                                    <div className="cmnt-input-box-profile-box">
+                                        <div className="profile-icon-block"></div>
+                                        <p>User One</p>
+                                    </div>
+                                    <textarea className="cmnt-input-bx" />
                                 </div>
+                            </div>
                         </div>
                     </div>
                 </div>
