@@ -232,7 +232,7 @@
 .task-comment-input-box {
     width: 100%;
     height: 200px;
-    background-color: yellowgreen;
+    /* background-color: ; */
 }
 
 .r-p-task-detail-content-main {
@@ -260,12 +260,17 @@
 }
 
 .task-comment-input-box-main {
-    background-color: blueviolet;
+    /* background-color: blueviolet; */
     padding: 20px 30px;
     display: flex;
+    height: 150px;
 }
 
 .cmnt-input-bx {
-    width: 70%;
+    width: 90%;
     margin: 0 30px;
+}
+
+.task-detail-title-txt {
+    margin: 20px 20px;
 }

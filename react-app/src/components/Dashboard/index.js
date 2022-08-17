@@ -99,7 +99,7 @@ const Dashboard = () => {
                         </div>
                         <div className="r-p-task-detail-content-box">
                             <div className="r-p-task-detail-content-main">
-                                <h1>Task Title 1</h1>
+                                <h1 className="task-detail-title-txt">Task Title 1</h1>
                                 <div>
                                     <div className="task-detail-info-blk">
                                         <p>Assignee</p>
