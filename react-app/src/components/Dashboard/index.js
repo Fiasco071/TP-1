@@ -37,7 +37,7 @@ const Dashboard = () => {
                         </select>
                     </div>
 
-                    <input type="text" className="search-bar"></input>
+                    <input type="text" className="search-bar" placeholder="Search"></input>
                     <div className="button-blk">
                         <div className="dashb-hdr-fnc-blck-buttons"></div>
                         <div className="dashb-hdr-fnc-blck-buttons"></div>

@@ -1,7 +1,10 @@
 .dashboard {
     width: 1200px;
     height: 730px;
-    background-color: grey;
+    padding: 5px 15px;
+    /* background-color: grey; */
+    border: 2px solid grey;
+    border-radius: 10px;
     font-family: Arial, sans-serif;
 }
 
@@ -16,14 +19,16 @@
     width: 1200px;
     height: 100px;
     padding: 15px 0 15px 0;
-    background-color: rgb(92, 91, 91);
+    /* background-color: rgb(92, 91, 91); */
     display: flex;
     justify-content: space-between;
 }
 
 .dashb-hdr-profile-block {
     display: flex;
-    background-color: aqua;
+    background-color: rgb(240, 240, 240);
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px rgb(218, 218, 218);
     padding: 10px 15px;
     margin-left: 10px;
 }
@@ -33,9 +38,15 @@
 }
 
 .profile-option-block-text {
-    padding-right: 20px;
+    margin-right: 20px;
     color: rgb(58, 57, 57);
     font-weight: bold;
+}
+
+.profile-option-block-text:hover {
+    color: rgb(47, 133, 209);
+    border-bottom: 3px solid rgb(47,133,209);
+    display:inline-block;
 }
 
 .viewport-option-block {
@@ -76,7 +87,7 @@
 
 .button-blk {
     display: flex;
-    gap: 15px;
+    gap: 5px;
 }
 
 .dashb-cnt-blck {
@@ -89,7 +100,12 @@
     height: 580px;
     background-color: rgb(253, 253, 253);
     border-radius: 10px;
+    border: 1px solid grey;
 }
+
+/* .l-p-ctnt-blk {
+    border-right: 1px solid grey;
+} */
 
 .l-p-hdr {
     /* background-color: red; */
@@ -109,7 +125,7 @@
 
 .task-list-lg {
     padding: 5px 10px;
-    border: 1px solid black;
+    border-bottom: 1px solid black;
     background-color: white;
 }
 
@@ -153,7 +169,7 @@
 }
 
 .task-list-lg:hover {
-    background-color: rgb(220, 220, 247);
+    background-color: rgb(240, 240, 248);
 }
 
 .l-p-ctnt-filter-bar {
@@ -162,6 +178,7 @@
     padding-left: 20px;
     gap:10px;
     height: 40px;
+    border-bottom: 1px solid grey;
 }
 
 .l-p-ctnt-filter-bar > p {
