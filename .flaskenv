@@ -1,1 +1,4 @@
 FLASK_APP=app
+FLASK_ENV=development
+SECRET_KEY=lkasjj12n3490re9485989230df09ajsdkf309ir021394en,u9fv0818734ljalsior
+DATABASE_URL=postgresql://tp_1_dev:password@localhost/tp_1
