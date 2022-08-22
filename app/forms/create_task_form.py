@@ -13,3 +13,4 @@ class CreateTaskForm(FlaskForm):
   project_id = IntegerField('project_id')
   created_at = DateTimeField('created_at', validators=[DataRequired()])
   updated_at = DateTimeField('updated_at', validators=[DataRequired()])
+

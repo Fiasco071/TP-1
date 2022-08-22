@@ -7,6 +7,7 @@ import RightPanel from "./RightPanel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
+import TaskForm from "../TaskForm";
 
 const Dashboard = () => {
     const dispatch = useDispatch();
@@ -67,13 +68,13 @@ const Dashboard = () => {
                                 <p>Recently Assigned</p>
                             </div>
                             <div className="l-p-ctnt-main">
-                                {tasks.map((task) => (
+                                {tasks?.map((task) => (
                                     <div 
                                         className="task-list-lg" 
-                                        onClick={() => setTaskId(task.id)}>
+                                        onClick={() => setTaskId(task?.id)}>
                                         <div className="task-list-lg-title-blk">
                                             <FontAwesomeIcon className='task-list-chk-mark' icon={faCheckCircle} />
-                                            <p className="task-title-txt">{task.title}</p>
+                                            <p className="task-title-txt">{task?.title}</p>
                                         </div>
                                         <div className="task-info-blk">
                                             <p className="tag-txt">Project</p>
@@ -91,7 +92,7 @@ const Dashboard = () => {
                 </div>
             </div>
             <div className="dashb-ftr-blck">
-
+                    <TaskForm />
             </div>
         </div>
     )
