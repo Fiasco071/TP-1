@@ -34,27 +34,27 @@ const RightPanel = ({id}) => {
                         <div className="r-p-task-detail-content-box">
                             {/* FORM BEGINS HERE */}
                             <div className="r-p-task-detail-content-main">
-                                <h1 className="task-detail-title-txt">{task.title}</h1>
+                                <h1 className="task-detail-title-txt">{task?.title}</h1>
                                 <div>
                                     <div className="task-detail-info-blk">
                                         <p>Assignee</p>
-                                        <p>{task.creator_id} FIX so that it calls user name</p>
+                                        <p>{task?.creator_id} FIX so that it calls user name</p>
                                     </div>
                                     <div className="task-detail-info-blk">
                                         <p>Created Date</p>
-                                        <p>{task.created_at}</p>
+                                        <p>{task?.created_at}</p>
                                     </div>
                                     <div className="task-detail-info-blk">
                                         <p>Due Date</p>
-                                        <p>{task.due_date}</p>
+                                        <p>{task?.due_date}</p>
                                     </div>
                                     <div className="task-detail-info-blk">
                                         <p>Projects</p>
-                                        <p>{task.project_id}</p>
+                                        <p>{task?.project_id}</p>
                                     </div>
                                     <div className="task-detail-info-blk">
                                         <p>Description</p>
-                                        <p>{task.content}</p>
+                                        <p>{task?.content}</p>
                                     </div>
                                     <div className="task-comment-list-box">
                                         {looptime2.map(() => (

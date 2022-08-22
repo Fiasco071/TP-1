@@ -7,6 +7,7 @@ import RightPanel from "./RightPanel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
+import TaskForm from "../TaskForm";
 
 const Dashboard = () => {
     const dispatch = useDispatch();
@@ -91,7 +92,7 @@ const Dashboard = () => {
                 </div>
             </div>
             <div className="dashb-ftr-blck">
-
+                    <TaskForm />
             </div>
         </div>
     )
