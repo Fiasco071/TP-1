@@ -2,12 +2,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCheck, faPaperclip, faFolderTree, faLink, faThumbsUp, faClock, faEllipsis, faX, faLock } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
+import { useSelector } from "react-redux";
 
 
 const RightPanel = ({id}) => {
 
-    let looptime2 = [1, 1, 1, 1, 1, 1, 1]
-    console.log(id)
+    const task = useSelector(state => state.task[id]) 
+    let looptime2 = [1,1,1,1,1]
+
     return (
         <div className="right-panel">
                         <div className="r-p-hdr">
@@ -32,23 +34,27 @@ const RightPanel = ({id}) => {
                         <div className="r-p-task-detail-content-box">
                             {/* FORM BEGINS HERE */}
                             <div className="r-p-task-detail-content-main">
-                                <h1 className="task-detail-title-txt">Task Title 1</h1>
+                                <h1 className="task-detail-title-txt">{task.title}</h1>
                                 <div>
                                     <div className="task-detail-info-blk">
                                         <p>Assignee</p>
-                                        <p>Steve Choi</p>
+                                        <p>{task.creator_id} FIX so that it calls user name</p>
+                                    </div>
+                                    <div className="task-detail-info-blk">
+                                        <p>Created Date</p>
+                                        <p>{task.created_at}</p>
                                     </div>
                                     <div className="task-detail-info-blk">
                                         <p>Due Date</p>
-                                        <p>No Due Date</p>
+                                        <p>{task.due_date}</p>
                                     </div>
                                     <div className="task-detail-info-blk">
                                         <p>Projects</p>
-                                        <p>Add to projects</p>
+                                        <p>{task.project_id}</p>
                                     </div>
                                     <div className="task-detail-info-blk">
                                         <p>Description</p>
-                                        <p>Add more detail to this task...</p>
+                                        <p>{task.content}</p>
                                     </div>
                                     <div className="task-comment-list-box">
                                         {looptime2.map(() => (

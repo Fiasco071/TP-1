@@ -67,13 +67,13 @@ const Dashboard = () => {
                                 <p>Recently Assigned</p>
                             </div>
                             <div className="l-p-ctnt-main">
-                                {tasks.map((task) => (
+                                {tasks?.map((task) => (
                                     <div 
                                         className="task-list-lg" 
-                                        onClick={() => setTaskId(task.id)}>
+                                        onClick={() => setTaskId(task?.id)}>
                                         <div className="task-list-lg-title-blk">
                                             <FontAwesomeIcon className='task-list-chk-mark' icon={faCheckCircle} />
-                                            <p className="task-title-txt">{task.title}</p>
+                                            <p className="task-title-txt">{task?.title}</p>
                                         </div>
                                         <div className="task-info-blk">
                                             <p className="tag-txt">Project</p>
