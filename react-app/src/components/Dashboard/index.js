@@ -2,11 +2,22 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCheck, faPaperclip, faFolderTree, faLink, faThumbsUp, faClock, faEllipsis, faX, faLock } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
-import { useState } from "react"
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import './style.css'
-
+import { dataCallTasks } from '../../store/task'
 
 const Dashboard = () => {
+    const dispatch = useDispatch();
+    const tasks = useSelector(state => Object.values(state.task))
+    const [tasksData, setTaskData] = useState([]);
+    useEffect(() => {
+        dispatch(dataCallTasks())
+        setTaskData(tasks)
+    }, [dispatch])
+
+    
+    console.log(tasks)
 
     const [flag, setFlag] = useState(false)
     let looptime = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
@@ -59,7 +70,7 @@ const Dashboard = () => {
                                 <p>Recently Assigned</p>
                             </div>
                             <div className="l-p-ctnt-main">
-                                {looptime.map(() => (
+                                {tasks.map(() => (
                                     <div className="task-list-lg">
                                         <div className="task-list-lg-title-blk">
                                             <FontAwesomeIcon className='task-list-chk-mark' icon={faCheckCircle} />
