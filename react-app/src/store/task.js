@@ -33,13 +33,22 @@ export const dataCallTasks = () => async (dispatch) => {
 }
 
 export const addTask = (data) => async (dispatch) => {
-    const formData = new FormData();
+    console.log(data)
+    const newData = {
+        'title': data.taskTitle,
+        'due_date': data.dd,
+        'content': data.content,
+        'creator_id': data.creatorId,
+        'user_id': data.assignto,
+        'created_at': data.cTS,
+        'updated_at': data.uTS
+    }
     const response = await fetch('/api/tasks/new', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(newData),
     })
     if (response.ok) {
         const data = await response.json();

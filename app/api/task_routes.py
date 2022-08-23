@@ -1,3 +1,4 @@
+from sqlite3 import Date
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
 from app.models import Task, db
@@ -30,7 +31,11 @@ def add_task():
   """
   form = CreateTaskForm()
   form['csrf_token'].data = request.cookies['csrf_token']
-  
+  print('=>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+  print(form.data)
+  print(form)
+  # if form.data['created_at'] == None:
+  #   form.data['created_at'] = Date()
   if form.validate_on_submit():
     task = Task(
       title=form.data['title'],
@@ -46,4 +51,4 @@ def add_task():
     db.session.commit()
         # login_user(user)
     return task.to_dict()
-  return task
+  return form.errors
