@@ -32,19 +32,18 @@ def add_task():
   form['csrf_token'].data = request.cookies['csrf_token']
   
   if form.validate_on_submit():
-        task = Task(
-            title=form.data['title'],
-            due_date=form.data['due_date'],
-            content=form.data['content'],
-            creator_id=form.data['creator_id'],
-            user_id=form.data['user_id'],
-            project_id=form.data['project_id'],
-            created_at=form.data['created_at'],
-            updated_at=form.data['updated_at']
-        )
-        db.session.add(task)
-        db.session.commit()
+    task = Task(
+      title=form.data['title'],
+      due_date=form.data['due_date'],
+      content=form.data['content'],
+      creator_id=form.data['creator_id'],
+      user_id=form.data['user_id'],
+      project_id=form.data['project_id'],
+      created_at=form.data['created_at'],
+      updated_at=form.data['updated_at']
+    )
+    db.session.add(task)
+    db.session.commit()
         # login_user(user)
-        return task.to_dict()
-  return {'errors': validation_errors_to_error_messages(form.errors)}, 401
-
+    return task.to_dict()
+  return task

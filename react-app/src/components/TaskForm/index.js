@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector} from 'react-redux';
+import { addTask } from '../../store/task';
 // import { useSelector, useDispatch } from 'react-redux'
 
 const TaskForm = () => {
+
+    const user = useSelector(state => state.session)
+    const user_ID = user.user.id
+
+    const dispatch = useDispatch()
     const [taskTitle, setTaskTitle] = useState('');
     const [dd, setDd] = useState();
     const [content, setContent] = useState('');
     const [assignto, setAssignto] = useState(1);
-    const [creatorId, setCreatorId] = useState(1); // USER ID HERE
+    const [creatorId, setCreatorId] = useState(user_ID); // USER ID HERE
     const [projectId, setProjectId] = useState(1);
     const [cTS, setCTS] = useState();
     const [uTS, setUTS] = useState();
@@ -20,18 +27,17 @@ const TaskForm = () => {
         setCTS(timeStamp)
         setUTS(timeStamp)
 
-
-        console.log('title', taskTitle)
-        console.log('DueDate', dd)
-        console.log('Content', content)
-        console.log('Assigned', assignto)
-        console.log('Creator', creatorId)
-        console.log('Project', projectId)
-        console.log('TS C', cTS)
-        console.log('TS U', uTS)
-
-        
-
+        const data = {
+            taskTitle,
+            dd,
+            content,
+            assignto,
+            creatorId,
+            projectId,
+            cTS,
+            uTS
+        };
+        await dispatch(addTask(data))
     };
 
     return (
@@ -97,6 +103,16 @@ const TaskForm = () => {
                     value={projectId}
                 ></input>
             </div>
+
+            {/* nullable 5. project number */}
+                <input
+                    type='hidden'
+                    name='creator_id'
+                    onChange={e => setCreatorId(e.target.value)}
+                    value={creatorId}
+                ></input>
+
+
             <button type='submit'>Create New Task!</button>
         </form>
     );

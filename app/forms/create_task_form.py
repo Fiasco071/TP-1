@@ -8,7 +8,7 @@ class CreateTaskForm(FlaskForm):
   title = StringField('title', validators=[DataRequired()])
   due_date = DateTimeField('due_date')
   content = StringField('content')
-  creator_id = IntegerField('creator_id', validators=[DataRequired()])
+  creator_id = IntegerField('creator_id', validators=[])
   user_id = IntegerField('user_id', validators=[DataRequired()])
   project_id = IntegerField('project_id')
   created_at = DateTimeField('created_at', validators=[DataRequired()])
