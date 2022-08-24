@@ -11,11 +11,12 @@ class Task(db.Model):
   content = db.Column(db.String(1000), nullable=True)
   creator_id = db.Column(db.Integer, ForeignKey('users.id'), nullable=False)
   user_id = db.Column(db.Integer, nullable=False) # whoever gets assigned to this task
-  project_id = db.Column(db.Integer, nullable=True)
+  project_id = db.Column(db.Integer, ForeignKey('projects.id'), nullable=True)
   created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
   updated_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
 
   task_owner = db.relationship('User', back_populates='tasks')
+  project = db.relationship('Project', back_populates='tasks')
   
   def to_dict(self):
     return {
