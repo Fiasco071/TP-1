@@ -38,7 +38,7 @@ const RightPanel = ({id}) => {
                                 <div>
                                     <div className="task-detail-info-blk">
                                         <p>Assignee</p>
-                                        <p>{task?.creator_id} FIX so that it calls user name</p>
+                                        <p>{task?.task_owner.username}</p>
                                     </div>
                                     <div className="task-detail-info-blk">
                                         <p>Created Date</p>
@@ -46,7 +46,7 @@ const RightPanel = ({id}) => {
                                     </div>
                                     <div className="task-detail-info-blk">
                                         <p>Due Date</p>
-                                        <p>{task?.due_date}</p>
+                                        <p>{task?.due_date?.slice(4,16)}</p>
                                     </div>
                                     <div className="task-detail-info-blk">
                                         <p>Projects</p>

@@ -79,7 +79,7 @@ const Dashboard = () => {
                                         <div className="task-info-blk">
                                             <p className="tag-txt">Project</p>
                                             <p className="tag-txt">Study</p>
-                                            <p className="task-dd-txt">22 Aug</p>
+                                            <p className="task-dd-txt">{task?.due_date?.slice(4,11)}</p>
                                         </div>
                                     </div>
                                 ))}

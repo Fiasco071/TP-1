@@ -1,10 +1,13 @@
+body {
+    background-color: rgb(30, 26, 43);
+}
+
 .dashboard {
     width: 1200px;
     height: 730px;
     padding: 5px 15px;
-    /* background-color: grey; */
-    border: 2px solid grey;
     border-radius: 10px;
+    background-color: rgb(235, 235, 235);
     font-family: Arial, sans-serif;
 }
 
@@ -12,7 +15,7 @@
     width: 70px;
     height: 70px;
     border-radius: 50%;
-    background-color: rgb(228, 228, 228);
+    background-color: rgb(78, 71, 99);
 }
 
 .dashb-hdr-blck {
