@@ -1,4 +1,5 @@
 from .db import db
+from sqlalchemy.sql import func
 
 class Message(db.Model):
   __tablename__ = 'messages'
@@ -10,5 +11,5 @@ class Message(db.Model):
   user_id = db.Column(db.Integer, nullable=False)
   task_id = db.Column(db.Integer, nullable=True)
   project_id = db.Column(db.Integer, nullable=False)
-  created_at = db.Column(db.DateTime, nullable=False)
-  updated_at = db.Column(db.DateTime, nullable=False)
+  created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
+  updated_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
