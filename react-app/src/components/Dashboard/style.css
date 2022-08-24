@@ -12,7 +12,7 @@ body {
     left: 40px;
     top: 110px;
     z-index: -1;
-    background: linear-gradient(180deg, rgb(122, 102, 182),rgb(70, 57, 110));
+    background: linear-gradient(180deg, rgb(147, 135, 182),rgb(70, 57, 110));
 }
 
 .dashboard {
@@ -102,7 +102,11 @@ body {
     margin: 0 ;
     height: 25px;
     border-radius: 15px;
-    border: 1.5px grey solid;
+    padding: 5px 10px;
+    color: white;
+    border: 3px dashed white;
+    background-color: rgb(84, 75, 110);
+    /* border: 1.5px grey solid; */
 }
 
 .button-blk {
