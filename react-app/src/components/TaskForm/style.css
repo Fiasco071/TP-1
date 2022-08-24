@@ -1,0 +1,15 @@
+.task-form-wrapper {
+    background-color: rgb(66, 122, 168);
+    width: 600px;
+    height: 400px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 15px 10px;
+    position: absolute;
+    top: 25%;
+    left: 300px;
+}
+
+.task-form {
+    
+}
