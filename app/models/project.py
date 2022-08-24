@@ -12,10 +12,10 @@ class Project(db.Model):
   updated_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
 
 
-  message = db.relationship("Message", back_populates="project")
-  thread = db.relationship("Thread", back_populates="project")
-  task = db.relationship("Task", back_populates="project")
-  employee_assignment = db.relationship("EmployeeAssignment", back_populates="project")
+  # message = db.relationship("Message", back_populates="project")
+  # thread = db.relationship("Thread", back_populates="project")
+  # task = db.relationship("Task", back_populates="project")
+  # employee_assignment = db.relationship("EmployeeAssignment", back_populates="project")
 
   def to_dict(self):
     return {
