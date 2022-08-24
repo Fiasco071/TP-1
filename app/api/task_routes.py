@@ -31,11 +31,6 @@ def add_task():
   """
   form = CreateTaskForm()
   form['csrf_token'].data = request.cookies['csrf_token']
-  print('=>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-  print(form.data)
-  print(form)
-  # if form.data['created_at'] == None:
-  #   form.data['created_at'] = Date()
   if form.validate_on_submit():
     task = Task(
       title=form.data['title'],
@@ -43,9 +38,7 @@ def add_task():
       content=form.data['content'],
       creator_id=form.data['creator_id'],
       user_id=form.data['user_id'],
-      project_id=form.data['project_id'],
-      created_at=form.data['created_at'],
-      updated_at=form.data['updated_at']
+      project_id=form.data['project_id']
     )
     db.session.add(task)
     db.session.commit()

@@ -3,22 +3,18 @@ from datetime import datetime
 
 def seed_tasks():
   first = Task(
-    title ='Task',
+    title ='Task number 1',
     due_date = datetime.now(),
-    content = 'Content stuff',
+    content = 'Content stuff 1',
     creator_id = 1,
-    user_id = 2,
-    created_at = datetime.now(),
-    updated_at = datetime.now()
+    user_id = 2
   )
   second = Task(
-    title ='Task',
+    title ='Task number 2 / more important stuff',
     due_date = datetime.now(),
-    content = 'Content stuff',
+    content = 'Content stuff for 2',
     creator_id = 1,
-    user_id = 2,
-    created_at = datetime.now(),
-    updated_at = datetime.now()
+    user_id = 2
   )
 
   db.session.add(first)

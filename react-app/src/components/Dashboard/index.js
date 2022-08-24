@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import './style.css'
 import { dataCallTasks } from '../../store/task'
@@ -14,12 +14,18 @@ const Dashboard = () => {
     const tasks = useSelector(state => Object.values(state.task))
     const [tasksData, setTaskData] = useState([]);
     const [taskId, setTaskId] = useState();
+    const [newTaskFlag, setNewTaskFlag] = useState(false)
+
+
     useEffect(() => {
         dispatch(dataCallTasks())
         setTaskData(tasks)
     }, [dispatch])
 
-    // const [flag, setFlag] = useState(false)
+    const clickNewTask = () => {
+        setNewTaskFlag(!newTaskFlag)
+    }
+
 
     return (
         <div className="dashboard">
@@ -58,7 +64,7 @@ const Dashboard = () => {
                 <div className="viewport-blk">
                     <div className="left-panel">
                         <div className="l-p-hdr">
-                            <div className="new-task-btn">
+                            <div className="new-task-btn" onClick={e => clickNewTask(e)}>
                                 + Add Task
                             </div>
                         </div>
@@ -69,8 +75,8 @@ const Dashboard = () => {
                             </div>
                             <div className="l-p-ctnt-main">
                                 {tasks?.map((task) => (
-                                    <div 
-                                        className="task-list-lg" 
+                                    <div
+                                        className="task-list-lg"
                                         onClick={() => setTaskId(task?.id)}>
                                         <div className="task-list-lg-title-blk">
                                             <FontAwesomeIcon className='task-list-chk-mark' icon={faCheckCircle} />
@@ -79,7 +85,7 @@ const Dashboard = () => {
                                         <div className="task-info-blk">
                                             <p className="tag-txt">Project</p>
                                             <p className="tag-txt">Study</p>
-                                            <p className="task-dd-txt">22 Aug</p>
+                                            <p className="task-dd-txt">{task?.due_date?.slice(4, 11)}</p>
                                         </div>
                                     </div>
                                 ))}
@@ -92,7 +98,9 @@ const Dashboard = () => {
                 </div>
             </div>
             <div className="dashb-ftr-blck">
+                {newTaskFlag && (
                     <TaskForm />
+                )}
             </div>
         </div>
     )
