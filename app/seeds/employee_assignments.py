@@ -1,8 +1,8 @@
-from app.models import db, EmployeeAssignments
+from app.models import db, EmployeeAssignment
 
 
 def seed_employee_assignments():
-    employee_assignment_1 = EmployeeAssignments(
+    employee_assignment_1 = EmployeeAssignment(
         user_id=1, task_id=1, project_id=1
     )
 
