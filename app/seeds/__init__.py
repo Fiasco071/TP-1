@@ -18,10 +18,10 @@ seed_commands = AppGroup('seed')
 def seed():
     # Add other seed functions here
     seed_users()
-    seed_tasks()
-    seed_messages()
     seed_projects()
+    seed_tasks()
     seed_threads()
+    seed_messages()
     seed_direct_messages()
     seed_employee_assignments()
 
@@ -30,9 +30,9 @@ def seed():
 def undo():
     # Add other undo functions here
     undo_users()
-    undo_tasks()
-    undo_messages()
     undo_projects()
+    undo_tasks()
     undo_threads()
+    undo_messages()
     undo_direct_messages()
     undo_employee_assignments()
