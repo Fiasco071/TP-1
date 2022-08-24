@@ -1,3 +1,4 @@
+from sqlalchemy.sql import func
 from .db import db
 
 class Task(db.Model):
@@ -10,8 +11,8 @@ class Task(db.Model):
   creator_id = db.Column(db.Integer, nullable=False)
   user_id = db.Column(db.Integer, nullable=False) # whoever gets assigned to this task
   project_id = db.Column(db.Integer, nullable=True)
-  created_at = db.Column(db.DateTime, nullable=False)
-  updated_at = db.Column(db.DateTime, nullable=False)
+  created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
+  updated_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
 
   def to_dict(self):
     return {

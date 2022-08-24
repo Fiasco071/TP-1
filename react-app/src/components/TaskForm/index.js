@@ -5,39 +5,31 @@ import { addTask } from '../../store/task';
 
 const TaskForm = () => {
 
-    const user = useSelector(state => state.session)
-    const user_ID = user.user.id
+    const currUser = useSelector(state => state.session)
+    const currUser_ID = currUser.user.id
 
     const dispatch = useDispatch()
-    const [taskTitle, setTaskTitle] = useState('');
-    const [dd, setDd] = useState();
+    const [title, setTaskTitle] = useState('');
+    const [due_date, setDd] = useState();
     const [content, setContent] = useState('');
-    const [assignto, setAssignto] = useState(1);
-    const [creatorId, setCreatorId] = useState(user_ID); // USER ID HERE
-    const [projectId, setProjectId] = useState(1);
-    const [cTS, setCTS] = useState();
-    const [uTS, setUTS] = useState();
+    const [user_id, setAssignto] = useState(1);
+    const [creator_id, setCreatorId] = useState(currUser_ID); // USER ID HERE
+    const [project_id, setProjectId] = useState(1);
 
     // const dispatch = useDispatch();
 
     const submitTask = async (e) => {
         e.preventDefault();
-        let timeStamp = new Date();
-
-        setCTS(timeStamp)
-        setUTS(timeStamp)
-
         const data = {
-            taskTitle,
-            dd,
+            title,
+            due_date,
             content,
-            assignto,
-            creatorId,
-            projectId,
-            cTS,
-            uTS
+            user_id,
+            creator_id,
+            project_id
         };
-        await dispatch(addTask(data))
+
+        dispatch(addTask(data))
     };
 
     return (
@@ -56,7 +48,7 @@ const TaskForm = () => {
                     type='text'
                     name='title'
                     onChange={e => setTaskTitle(e.target.value)}
-                    value={taskTitle}
+                    value={title}
                 ></input>
             </div>
 
@@ -67,7 +59,7 @@ const TaskForm = () => {
                     type='date'
                     name='due_date'
                     onChange={e => setDd(e.target.value)}
-                    value={dd}
+                    value={due_date}
                 ></input>
             </div>
 
@@ -89,7 +81,7 @@ const TaskForm = () => {
                     type='number'
                     name='user_id'
                     onChange={e => setAssignto(e.target.value)}
-                    value={assignto}
+                    value={user_id}
                 ></input>
             </div>
 
@@ -100,16 +92,15 @@ const TaskForm = () => {
                     type='number'
                     name='project_id'
                     onChange={e => setProjectId(e.target.value)}
-                    value={projectId}
+                    value={project_id}
                 ></input>
             </div>
 
-            {/* nullable 5. project number */}
                 <input
                     type='hidden'
                     name='creator_id'
                     onChange={e => setCreatorId(e.target.value)}
-                    value={creatorId}
+                    value={creator_id}
                 ></input>
 
 
