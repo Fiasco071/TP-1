@@ -10,10 +10,12 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
-    
+    clearance = db.Column(db.Integer, nullable=False)
+
     tasks = db.relationship('Task', back_populates='task_owner')
+    project = db.relationship('Project', back_populates="user")
     # messages = db.relationship('Message', back_populates='msg_owner')
-    
+
     @property
     def password(self):
         return self.hashed_password
@@ -29,9 +31,10 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'clearance': self.clearance
         }
-        
+
     def to_dict_username(self):
         return {
             'username': self.username
