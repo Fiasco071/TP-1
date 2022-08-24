@@ -12,9 +12,11 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
     clearance = db.Column(db.Integer, nullable=False)
 
-    tasks = db.relationship('Task', back_populates='task_owner')
+    task = db.relationship('Task', back_populates='task_owner')
     project = db.relationship('Project', back_populates="user")
-    # messages = db.relationship('Message', back_populates='msg_owner')
+    message = db.relationship('Message', back_populates='msg_owner')
+    thread = db.relationship('Thread', back_populates='user')
+    employee_assignment = db.relationship('EmployeeAssignment', back_populates='user')
 
     @property
     def password(self):
