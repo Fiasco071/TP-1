@@ -11,9 +11,9 @@ class EmployeeAssignment(db.Model):
   created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
   updated_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
 
-  user = db.relationship("User", back_populates="employee_assignment")
-  task = db.relationship("Task", back_populates="employee_assignment")
-  project = db.relationship("Project", back_populates="employee_assignment")
+  # user = db.relationship("User", back_populates="employee_assignment")
+  # task = db.relationship("Task", back_populates="employee_assignment")
+  # project = db.relationship("Project", back_populates="employee_assignment")
 
   def to_dict(self):
     return {

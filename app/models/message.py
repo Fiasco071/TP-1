@@ -14,10 +14,10 @@ class Message(db.Model):
   created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
   updated_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
 
-  user = db.relationship("User", back_populates="message")
-  project = db.relationship("Project", back_populates="message")
-  thread = db.relationship("Thread", back_populates="message")
-  task = db.relationship("Task", back_populates="message")
+  # msg_owner = db.relationship("User", back_populates="messages")
+  # project = db.relationship("Project", back_populates="message")
+  # thread = db.relationship("Thread", back_populates="message")
+  # task = db.relationship("Task", back_populates="message")
 
   def to_dict(self):
     return {
