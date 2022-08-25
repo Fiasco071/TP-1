@@ -15,9 +15,13 @@ class Task(db.Model):
   created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
   updated_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
 
-  task_owner = db.relationship('User', back_populates='tasks')
-  project = db.relationship('Project', back_populates='tasks')
-  
+  task_owner = db.relationship('User', back_populates='task')
+  project = db.relationship('Project', back_populates='task')
+  thread = db.relationship('Thread', back_populates='task')
+  message = db.relationship('Message', back_populates='task')
+  employee_assignment = db.relationship('EmployeeAssignment', back_populates='task')
+
+
   def to_dict(self):
     return {
       'id': self.id,
