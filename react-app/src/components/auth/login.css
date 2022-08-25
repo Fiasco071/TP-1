@@ -1,0 +1,73 @@
+.landing-container {
+    display: flex;
+    margin-top: 30px;
+    height: 95vh;
+    justify-content: space-evenly;
+    background-color: white;
+}
+
+.landing-container-left {
+    display: flex;
+    border-radius: 5px;
+    background-color: #6d4aff;
+    width: 50%;
+}
+
+#landing-container-left-text {
+    font-family: Helvetica, sans-serif;
+    padding-left: 69px;
+    align-self: center;
+    font-size: 44px;
+    line-height: 56px;
+    color: white;
+}
+
+.landing-container-right {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    border-radius: 5px;
+    width: 50%;
+    padding-left: 69px;
+    font-size: 18px;
+    font-family: Helvetica,sans-serif;
+    font-weight: 500;
+}
+
+.login-form-email-div {
+    margin-bottom: 8px;
+}
+
+.login-form-div {
+    margin-bottom: 6px;
+}
+
+.login-form-input {
+    background-color: #fff;
+    border: 2px solid #e0e6e8;
+    border-radius: 3px;
+    height: 50px;
+    line-height: normal;
+    margin: 0;
+    padding: 0 0 0 16px;
+    transition: border .15s;
+    margin-bottom: 26px;
+    border: 1px solid #273240;
+    border-radius: 2px;
+    font-family: gordita,Helvetica Neue,Helvetica,sans-serif;
+    box-shadow: none;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+#login-form-submit-button {
+    font-family: Helvetica,sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 16px 32px;
+    height: 50px;
+    background-color: #0d0e10;
+    color: #fff;
+    cursor: pointer;
+    text-align: center;
+}
