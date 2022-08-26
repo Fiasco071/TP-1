@@ -15,6 +15,7 @@ const Dashboard = () => {
     const [tasksData, setTaskData] = useState([]);
     const [taskId, setTaskId] = useState();
     const [newTaskFlag, setNewTaskFlag] = useState(false)
+    const [listView, setListView] = useState('list');
 
 
     useEffect(() => {
@@ -38,9 +39,9 @@ const Dashboard = () => {
                             <option>Project</option>
                         </select>
                         <div className="profile-option-block">
-                            <p className="profile-option-block-text">List</p>
-                            <p className="profile-option-block-text">Calendar</p>
-                            <p className="profile-option-block-text">Files</p>
+                            <p className={`profile-option-block-text ${listView == 'list' ? 'clicked' : ''}`} onClick={e => setListView('list')}>List</p>
+                            <p className={`profile-option-block-text ${listView == 'calendar' ? 'clicked' : ''}`} onClick={e => setListView('calendar')}>Calendar</p>
+                            <p className={`profile-option-block-text ${listView == 'files' ? 'clicked' : ''}`} onClick={e => setListView('files')}>Files</p>
                         </div>
                     </div>
                 </div>
