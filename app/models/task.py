@@ -32,6 +32,7 @@ class Task(db.Model):
       'task_owner': self.task_owner.to_dict_username(),
       'user_id': self.user_id,
       'project_id': self.project_id,
+      # 'project_detail' : self.project.to_dict_project_name(),
       'created_at': self.created_at,
       'updated_at': self.updated_at
     }

@@ -1,27 +1,35 @@
+:root {
+    --bgCol: rgb(23,24,42);
+    --innerCol: rgb(35,31,63);
+    --fadeColDark: rgb(22, 19, 39);
+    --fontColor: #535151;
+}
+
 body {
+    margin: 0;
     background-color: rgb(30, 26, 43);
 }
 
-.dashboard::before {
+/* .dashboard::before {
     content: "";
     display: inline-block;
-    width: 1267px;
-    height: 770px;
+    width: calc(100%);
+    height: 757px;
     border-radius: 15px;
     position: absolute;
-    left: 40px;
+    left: 0px;
     top: 110px;
     z-index: -1;
     background: linear-gradient(180deg, rgb(147, 135, 182),rgb(70, 57, 110));
-}
+} */
 
 .dashboard {
-    width: 1200px;
+    width: calc(100%);
     height: 730px;
     padding: 5px 15px;
     border-radius: 15px;
+    box-sizing: border-box;
     background: linear-gradient(180deg, rgb(133, 119, 175), rgb(43, 35, 68));
-    margin-left: 50px;
     font-family: Arial, sans-serif;
 }
 
@@ -43,32 +51,43 @@ body {
 
 .dashb-hdr-profile-block {
     display: flex;
-    background-color: rgb(240, 240, 240);
-    border-radius: 15px;
-    box-shadow: 2px 2px 4px rgb(218, 218, 218);
     padding: 10px 15px;
     margin-left: 10px;
+    background-color: rgb(84, 75, 110);
+    border-radius: 15px;
+    /* border: 2px dashed white; */
+    box-shadow: 5px 5px 4px rgb(41, 35, 53), -3px 5px 4px rgb(41, 35, 53);  
 }
 
 .profile-option-block {
+    margin-top: 10px;
+    border-radius: 25px;
+    /* border: px solid white; */
+    background-color: rgb(118, 107, 134);
     display: flex;
+    padding: 4px 5px;
 }
 
 .profile-option-block-text {
-    margin-right: 20px;
-    color: rgb(58, 57, 57);
+    margin:0;
+    color: white;
+    padding: 2px 15px;
     font-weight: bold;
 }
 
-.profile-option-block-text:hover {
-    color: rgb(47, 133, 209);
-    border-bottom: 3px solid rgb(47,133,209);
-    display:inline-block;
+.profile-option-block-text.clicked  {
+    border-radius: 15px;
+    background-color: white;
+    color: rgb(54, 27, 90);
 }
+
 
 .viewport-option-block {
     font-size: 23px;
     font-weight: bold;
+    background-color: rgb(84, 75, 110);
+    padding: 5px 10px;
+    border-radius: 15px;
 }
 
 .profile-content-block {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTask } from '../../store/task';
 // import { useSelector, useDispatch } from 'react-redux'
@@ -11,6 +11,7 @@ const TaskForm = () => {
     const currUser_ID = currUser.user.id
 
     const dispatch = useDispatch()
+    const ref = useRef(null)
     const [title, setTaskTitle] = useState('');
     const [due_date, setDd] = useState();
     const [content, setContent] = useState('');
@@ -18,7 +19,9 @@ const TaskForm = () => {
     const [creator_id, setCreatorId] = useState(currUser_ID); // USER ID HERE
     const [project_id, setProjectId] = useState(1);
 
-    // const dispatch = useDispatch();
+    const calendarButtonToggle = () => {
+        ref.current.showPicker()
+    }
 
     const submitTask = async (e) => {
         e.preventDefault();
@@ -36,7 +39,8 @@ const TaskForm = () => {
 
     return (
         <div className='task-form-wrapper'>
-            <form className='task-form' onSubmit={submitTask}>
+            <h1 className='task-new-text'>create a new task</h1>
+            <form className='input-box' onSubmit={submitTask}>
                 {/* ERROR BLOCK --- FIX THIS LATER */}
                 {/* <div>
         {errors.map((error, ind) => (
@@ -45,40 +49,55 @@ const TaskForm = () => {
       </div> */}
 
                 {/* 1.title */}
-                <div>
-                    <label>Task Title</label>
+                {/* <div 
+                    className='calendar-button-box'
+                    onClick={e => calendarButtonToggle()}
+                ></div> */}
+                <div className='input-box'>
+                    <label>title</label>
                     <input
                         type='text'
                         name='title'
+                        className='title-input-box'
                         onChange={e => setTaskTitle(e.target.value)}
                         value={title}
                     ></input>
                 </div>
 
                 {/* nullable 2.due_date */}
-                <div>
-                    <label>Due Date</label>
-                    <input
-                        type='date'
-                        name='due_date'
-                        onChange={e => setDd(e.target.value)}
-                        value={due_date}
-                    ></input>
+                <div className='input-box'>
+                    <label
+                        className='calendar-button-box'
+                        onClick={e => calendarButtonToggle()}
+                    >
+                        {due_date && (
+                            <p className='due_date-text'>{due_date}</p>
+                        )}
+                        <input
+                            ref={ref}
+                            type='date'
+                            name='due_date'
+                            className={`due_date-input`}
+                            onChange={e => setDd(e.target.value)}
+                            value={due_date}
+                        ></input>
+                    </label>
                 </div>
 
                 {/* nullable 3.content */}
-                <div>
-                    <label>Description</label>
-                    <input
+                <div className='input-box'>
+                    <label>description</label>
+                    <textarea
                         type='text'
                         name='content'
+                        className='desc-text-box'
                         onChange={e => setContent(e.target.value)}
                         value={content}
-                    ></input>
+                    ></textarea>
                 </div>
 
                 {/* nullable 4. assignto */}
-                <div>
+                <div className='input-box'>
                     <label>Assigned To</label>
                     <input
                         type='number'
@@ -89,8 +108,8 @@ const TaskForm = () => {
                 </div>
 
                 {/* nullable 5. project number */}
-                <div>
-                    <label>Project</label>
+                <div className='input-box'>
+                    <label>does this belong to a project?</label>
                     <input
                         type='number'
                         name='project_id'
@@ -107,7 +126,9 @@ const TaskForm = () => {
                 ></input>
 
 
-                <button type='submit'>Create New Task!</button>
+                <button 
+                className='new-task-submit-button'
+                type='submit'>Create New Task!</button>
             </form>
         </div>
     );

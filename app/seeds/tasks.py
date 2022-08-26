@@ -6,6 +6,7 @@ def seed_tasks():
     title ='Task number 1',
     due_date = datetime.now(),
     content = 'Content stuff 1',
+    project_id = 1,
     creator_id = 1,
     user_id = 2
   )
@@ -13,6 +14,7 @@ def seed_tasks():
     title ='Task number 2 / more important stuff',
     due_date = datetime.now(),
     content = 'Content stuff for 2',
+    project_id = 1,
     creator_id = 1,
     user_id = 2
   )

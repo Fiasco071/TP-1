@@ -18,6 +18,7 @@ class Project(db.Model):
   task = db.relationship("Task", back_populates="project")
   employee_assignment = db.relationship("EmployeeAssignment", back_populates="project")
 
+
   def to_dict(self):
     return {
       'id': self.id,
@@ -30,4 +31,10 @@ class Project(db.Model):
       # 'messages': [msg.to_dict() for msg in self.message],
       # 'tasks': [tsk.to_dict() for tsk in self.task],
       # 'threads': [thrd.to_dict() for thrd in self.thread]
+    }
+    
+  def to_dict_project_name(self):
+    return {
+      'title': self.title,
+      'content': self.content
     }
