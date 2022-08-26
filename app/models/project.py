@@ -12,7 +12,7 @@ class Project(db.Model):
   created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
   updated_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
 
-  user = db.relationship("User", back_populates="project")
+  user = db.relationship("User", back_populates="projects")
   message = db.relationship("Message", back_populates="project")
   thread = db.relationship("Thread", back_populates="project")
   task = db.relationship("Task", back_populates="project")

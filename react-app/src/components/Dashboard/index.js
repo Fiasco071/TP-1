@@ -100,7 +100,7 @@ const Dashboard = () => {
             </div>
             <div className="dashb-ftr-blck">
                 {newTaskFlag && (
-                    <TaskForm />
+                    <TaskForm flagSwap={setNewTaskFlag}/>
                 )}
             </div>
         </div>
