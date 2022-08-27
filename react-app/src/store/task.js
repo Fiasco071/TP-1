@@ -1,6 +1,7 @@
 // constants
 const GET_TASKS = 'task/GET_TASKS';
 const ADD_TASK = 'task/ADD_TASK';
+const ARCHV_TASK = 'task/ARCHIVE_TASK';
 
 const getTasks = (data) => ({
     type: GET_TASKS,
@@ -12,8 +13,13 @@ const addATask = (data) => ({
     payload: data
 });
 
+const removeTask = (data) => ({
+    type: ARCHV_TASK,
+    payload: data
+});
+
 export const dataCallTasks = () => async (dispatch) => {
-    const response = await fetch('/api/tasks', {
+    const response = await fetch('/api/tasks/', {
         headers: {
             'Content-Type': 'application/json'
         }
@@ -33,14 +39,6 @@ export const dataCallTasks = () => async (dispatch) => {
 }
 
 export const addTask = (data) => async (dispatch) => {
-    // const newData = {
-    //     'title': data.title,
-    //     'due_date': data.due_date,
-    //     'content': data.content,
-    //     'creator_id': data.creator_id,
-    //     'project_id' : data.project_id,
-    //     'user_id': data.assignto
-    // }
     const response = await fetch('/api/tasks/new', {
         method: 'POST',
         headers: {
@@ -62,6 +60,22 @@ export const addTask = (data) => async (dispatch) => {
     }
 }
 
+export const archiveTask = (id) => async (dispatch) => {
+    const response = await fetch(`/api/tasks/archive/${id}`, {
+        method: 'PUT'
+    })
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(removeTask(id))
+        if (data.errors) {
+            return data.errors;
+        }
+    } else {
+        return ['An error occurred. Please try again.']
+    }
+}
+
+
 const initialState = { tasks: null };
 
 export default function reducer(state = initialState, action) {
@@ -75,6 +89,11 @@ export default function reducer(state = initialState, action) {
                 newState[action.payload.id] = action.payload;
                 return newState;
               }
+        case ARCHV_TASK: {
+                const newState = { ...state };
+                newState[action.payload].active = false
+                return newState;
+        }
         default:
             return state;
     }
