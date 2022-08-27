@@ -2,35 +2,40 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import './style.css'
-import { dataCallTasks } from '../../store/task'
+import { archiveTask, dataCallTasks } from '../../store/task'
 import RightPanel from "./RightPanel";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 import TaskForm from "../TaskForm";
+import { logout } from "../../store/session";
 
 const Dashboard = () => {
     const dispatch = useDispatch();
     const tasks = useSelector(state => Object.values(state.task))
-    const [tasksData, setTaskData] = useState([]);
+    const filteredTasks = tasks?.filter(task => task?.active === true)
     const [taskId, setTaskId] = useState();
     const [newTaskFlag, setNewTaskFlag] = useState(false)
     const [listView, setListView] = useState('list');
 
-
+    
     useEffect(() => {
         dispatch(dataCallTasks())
-        setTaskData(tasks)
     }, [dispatch])
 
     const clickNewTask = () => {
         setNewTaskFlag(!newTaskFlag)
     }
-
+    
 
     return (
         <div className="dashboard">
-            <div className="dashb-hdr-blck">
+            <div className="log-out-button"
+            onClick={() => dispatch(logout())}
+            >logout</div>
+            <div className="dashb-hdr-blck"
+                onClick={() => setNewTaskFlag(false)}
+            >
                 <div className="dashb-hdr-profile-block">
                     <div className="profile-icon-block"></div>
                     <div className="profile-content-block">
@@ -75,12 +80,16 @@ const Dashboard = () => {
                                 <p>Recently Assigned</p>
                             </div>
                             <div className="l-p-ctnt-main">
-                                {tasks?.map((task) => (
+                                {filteredTasks?.map((task) => (
                                     <div
                                         className="task-list-lg"
                                         onClick={() => setTaskId(task?.id)}>
                                         <div className="task-list-lg-title-blk">
-                                            <FontAwesomeIcon className='task-list-chk-mark' icon={faCheckCircle} />
+                                            <FontAwesomeIcon                
+                                                className='task-list-chk-mark'
+                                                icon={faCheckCircle} 
+                                                onClick={() => dispatch(archiveTask(task?.id))}
+                                                />
                                             <p className="task-title-txt">{task?.title}</p>
                                         </div>
                                         <div className="task-info-blk">
@@ -100,7 +109,7 @@ const Dashboard = () => {
             </div>
             <div className="dashb-ftr-blck">
                 {newTaskFlag && (
-                    <TaskForm />
+                    <TaskForm flagSwap={setNewTaskFlag}/>
                 )}
             </div>
         </div>

@@ -10,8 +10,14 @@ class Task(db.Model):
   due_date = db.Column(db.Date, nullable=True)
   content = db.Column(db.String(1000), nullable=True)
   creator_id = db.Column(db.Integer, ForeignKey('users.id'), nullable=False)
-  user_id = db.Column(db.Integer, nullable=False) # whoever gets assigned to this task
+  # user_id = db.Column(db.Integer, nullable=False) # whoever gets assigned to this task
+  # use a join table this
+  
+  # id        1     2     3
+  # task_id   1     1     1
+  # user_id   1     2     3
   project_id = db.Column(db.Integer, ForeignKey('projects.id'), nullable=True)
+  active = db.Column(db.Boolean, default=True, nullable=False)
   created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
   updated_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
 
@@ -30,8 +36,8 @@ class Task(db.Model):
       'content': self.content,
       'creator_id': self.creator_id,
       'task_owner': self.task_owner.to_dict_username(),
-      'user_id': self.user_id,
       'project_id': self.project_id,
+      'active': self.active,
       # 'project_detail' : self.project.to_dict_project_name(),
       'created_at': self.created_at,
       'updated_at': self.updated_at

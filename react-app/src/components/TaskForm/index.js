@@ -1,14 +1,17 @@
 import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendar } from "@fortawesome/free-regular-svg-icons";
 import { addTask } from '../../store/task';
 // import { useSelector, useDispatch } from 'react-redux'
 import './style.css'
 
 
-const TaskForm = () => {
+const TaskForm = (props) => {
 
-    const currUser = useSelector(state => state.session)
-    const currUser_ID = currUser.user.id
+    const currUser = useSelector(state => state.session);
+    const currUser_ID = currUser.user.id;
+    const currUserProjectList = currUser.user.projects;
 
     const dispatch = useDispatch()
     const ref = useRef(null)
@@ -17,7 +20,7 @@ const TaskForm = () => {
     const [content, setContent] = useState('');
     const [user_id, setAssignto] = useState(1);
     const [creator_id, setCreatorId] = useState(currUser_ID); // USER ID HERE
-    const [project_id, setProjectId] = useState(1);
+    const [project_id, setProjectId] = useState();
 
     const calendarButtonToggle = () => {
         ref.current.showPicker()
@@ -33,7 +36,7 @@ const TaskForm = () => {
             creator_id,
             project_id
         };
-
+        props.flagSwap(false)
         dispatch(addTask(data))
     };
 
@@ -70,8 +73,11 @@ const TaskForm = () => {
                         className='calendar-button-box'
                         onClick={e => calendarButtonToggle()}
                     >
+                        <FontAwesomeIcon 
+                        className='calendar-icon'
+                        icon={faCalendar} />
                         {due_date && (
-                            <p className='due_date-text'>{due_date}</p>
+                            <p className='due_date-text'>{due_date.slice(5) + '-' + due_date.slice(0,4)}</p>
                         )}
                         <input
                             ref={ref}
@@ -97,7 +103,7 @@ const TaskForm = () => {
                 </div>
 
                 {/* nullable 4. assignto */}
-                <div className='input-box'>
+                <div className='input-box assignto-box'>
                     <label>Assigned To</label>
                     <input
                         type='number'
@@ -110,12 +116,29 @@ const TaskForm = () => {
                 {/* nullable 5. project number */}
                 <div className='input-box'>
                     <label>does this belong to a project?</label>
-                    <input
-                        type='number'
+                    <select
+                        className='project-select-option-box'
+                        value={project_id}
                         name='project_id'
                         onChange={e => setProjectId(e.target.value)}
-                        value={project_id}
-                    ></input>
+                    >
+                        <option
+                            value=''
+                            className='option-test-01'
+                        >this doesn't belong to a project</option>
+                        {currUserProjectList && (
+                            currUserProjectList?.map(project => (
+                                <option 
+                                    key={project.id}
+                                    value={project.id}
+                                    className='option-test'
+                                    onClick={e => console.log(project.title)}
+                                >
+                                    {project.title}
+                                </option>
+                            ))
+                        )}
+                    </select>
                 </div>
 
                 <input

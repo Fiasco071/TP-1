@@ -12,7 +12,7 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
     clearance = db.Column(db.Integer, nullable=False)
     task = db.relationship('Task', back_populates='task_owner')
-    project = db.relationship('Project', back_populates="user")
+    projects = db.relationship('Project', back_populates="user")
     message = db.relationship('Message', back_populates='msg_owner')
     thread = db.relationship('Thread', back_populates='user')
     employee_assignment = db.relationship('EmployeeAssignment', back_populates='user')
@@ -33,7 +33,8 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'username': self.username,
             'email': self.email,
-            'clearance': self.clearance
+            'clearance': self.clearance,
+            'projects' : [proj.to_dict() for proj in self.projects]
         }
 
     def to_dict_username(self):

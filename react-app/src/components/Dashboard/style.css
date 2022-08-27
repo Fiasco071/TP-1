@@ -3,6 +3,8 @@
     --innerCol: rgb(35,31,63);
     --fadeColDark: rgb(22, 19, 39);
     --fontColor: #535151;
+    --fontColorLight: #ebe7f5;
+    --formBG: #6d4aff;
 }
 
 body {

@@ -7,16 +7,14 @@ def seed_tasks():
     due_date = datetime.now(),
     content = 'Content stuff 1',
     project_id = 1,
-    creator_id = 1,
-    user_id = 2
+    creator_id = 1
   )
   second = Task(
     title ='Task number 2 / more important stuff',
     due_date = datetime.now(),
     content = 'Content stuff for 2',
     project_id = 1,
-    creator_id = 1,
-    user_id = 2
+    creator_id = 1
   )
 
   db.session.add(first)

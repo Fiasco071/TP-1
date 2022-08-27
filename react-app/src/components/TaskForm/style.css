@@ -5,9 +5,9 @@
     border-radius: 10px;
     box-sizing: border-box;
     position: absolute;
-    top: 25%;
-    left: 300px;
-    background-color: #60567D;
+    top: 15%;
+    left: calc(50% - 240px);
+    background-color: var(--formBG);
     box-shadow: 3px 3px 4px grey, -3px 3px 4px grey;
     display: flex;
     flex-direction: column;
@@ -20,20 +20,18 @@
     font-size: 27px;
 }
 
-.task-form {
+
+.input-box {
     background-color: #FFFFFF;
     width: 100%;
     height: 100%;
     padding: 15px 10px;
-    box-sizing: border-box;
-}
-
-.input-box {
     display: flex;
     flex-direction: column;
-    margin-bottom: 5px;
     background-color: white;
-    padding: 0 5px;
+    padding: 5px 5px;
+    border-radius: 0 0 10px 10px;
+    box-sizing: border-box;
 }
 
 .input-box > label {
@@ -55,7 +53,7 @@
 .desc-text-box {
     border: 0.5px solid #838383;
     border-radius: 10px;
-    font-size: 24px;
+    font-size: 18px;
     padding: 10px 15px;
     font-weight: bold;
     height: 110px;
@@ -66,12 +64,15 @@
 .calendar-button-box {
     width: 35px;
     height: 35px;
-    background-color: #5c4d88;
+    background-color: var(--formBG);
     border-radius: 10px;
     position: absolute;
     left: 432px;
     top: 230px;
     box-shadow: inset 0.5px 2px 3px #aaa2c2, inset -0.5px 2px 3px #322c44, 0.5px 2px 3px #322c44, -0.5px 2px 3px #322c44;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .due_date-input {
@@ -100,4 +101,36 @@
     left: 220px;
     font-size: 24px;
     width: 250px;
+}
+
+.calendar-icon {
+    color: var(--fontColorLight);
+    position: relative;
+    top: 5px;
+}
+
+.input-box.assignto-box {
+    display: none;
+}
+
+
+.project-select-option-box {
+    border: 0.5px solid #838383;
+    border-radius: 10px;
+    font-size: 18px;
+    padding: 10px 15px;
+    font-weight: bold;
+    box-shadow: inset 0.1px 1px 4px #d2cddd, inset -0.3px 1px 4px #d2cddd, 0.5px 0px 4px #53505c, -0.5px 0px 4px #222027;
+}
+.option-test-01 {
+    color: red;
+}
+
+.option-test {
+    border: 0.5px solid #838383;
+    border-radius: 10px;
+    font-size: 18px;
+    padding: 10px 15px;
+    font-weight: bold;
+    box-shadow: inset 0.1px 1px 4px #d2cddd, inset -0.3px 1px 4px #d2cddd, 0.5px 0px 4px #53505c, -0.5px 0px 4px #222027;
 }
