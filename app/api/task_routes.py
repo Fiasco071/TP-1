@@ -41,7 +41,6 @@ def add_task():
       due_date=form.data['due_date'],
       content=form.data['content'],
       creator_id=form.data['creator_id'],
-      user_id=form.data['user_id'],
       project_id=form.data['project_id']
     )
     db.session.add(task)
@@ -49,6 +48,36 @@ def add_task():
         # login_user(user)
     return task.to_dict()
   return form.errors
+
+@task_routes.route('/edit/<int:id>', methods=['PUT'])
+@login_required
+def update_task(id):
+  """
+  Pull Data from frontend and Update an existing entry
+  """
+  form = CreateTaskForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
+  if form.validate_on_submit():
+    
+    task = Task.query.get(id)
+    task.title=form.data['title'],
+    task.due_date=form.data['due_date'],
+    task.content=form.data['content'],
+    task.creator_id=form.data['creator_id'],
+    task.project_id=form.data['project_id']
+    # task = Task(
+    #   title=form.data['title'],
+    #   due_date=form.data['due_date'],
+    #   content=form.data['content'],
+    #   creator_id=form.data['creator_id'],
+    #   project_id=form.data['project_id']
+    # )
+    db.session.add(task)
+    db.session.commit()
+        # login_user(user)
+    return task.to_dict()
+  return form.errors
+
 
 @task_routes.route('/archive/<int:id>', methods=['PUT'])
 # @login_required
