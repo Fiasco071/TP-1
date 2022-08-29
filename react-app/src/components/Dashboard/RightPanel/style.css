@@ -1,0 +1,9 @@
+.r-p-task-detail-title-box {
+    display: flex;
+    align-items: center;
+
+}
+
+.edit-button {
+    font-size: 30px;
+}

@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar } from "@fortawesome/free-regular-svg-icons";
-import { addTask } from '../../store/task';
+import { addTask, editTask } from '../../store/task';
 // import { useSelector, useDispatch } from 'react-redux'
 import './style.css'
 
@@ -13,14 +13,34 @@ const TaskForm = (props) => {
     const currUser_ID = currUser.user.id;
     const currUserProjectList = currUser.user.projects;
 
+    const task = useSelector(state => state.task[props.editId])
+
+    let test_date
+    let due_date_parsed
+    if (task?.due_date !== undefined) {
+        test_date = new Date(task?.due_date)
+        due_date_parsed = test_date.getFullYear() + '-' + (test_date.getMonth()+1) + '-' + (test_date.getDate() + 1 )
+    }
+
     const dispatch = useDispatch()
     const ref = useRef(null)
-    const [title, setTaskTitle] = useState('');
-    const [due_date, setDd] = useState();
-    const [content, setContent] = useState('');
+    const [title, setTaskTitle] = useState(task?.title);
+    const [due_date, setDd] = useState(due_date_parsed);
+    const [content, setContent] = useState(task?.content);
     const [user_id, setAssignto] = useState(1);
     const [creator_id, setCreatorId] = useState(currUser_ID); // USER ID HERE
-    const [project_id, setProjectId] = useState();
+    const [project_id, setProjectId] = useState(task?.project_id);
+
+    //Edit form check and value update
+    // if (props.editId !==  undefined) {
+    //     setTaskTitle(task.title)
+    //     setDd(task.due_date)
+    //     setContent(task.content)
+    //     // setAssignto(task.)
+    //     setProjectId(task.project_id)
+    // }
+
+    console.log(due_date)
 
     const calendarButtonToggle = () => {
         ref.current.showPicker()
@@ -32,7 +52,6 @@ const TaskForm = (props) => {
             title,
             due_date,
             content,
-            user_id,
             creator_id,
             project_id
         };
@@ -40,10 +59,24 @@ const TaskForm = (props) => {
         dispatch(addTask(data))
     };
 
+    const updateTask = async (e) => {
+        e.preventDefault();
+        const data = {
+            id: props.editId,
+            title,
+            due_date,
+            content,
+            creator_id,
+            project_id
+        };
+        props.flagSwap(false)
+        dispatch(editTask(data))
+    }
+
     return (
         <div className='task-form-wrapper'>
             <h1 className='task-new-text'>create a new task</h1>
-            <form className='input-box' onSubmit={submitTask}>
+            <form className='input-box'>
                 {/* ERROR BLOCK --- FIX THIS LATER */}
                 {/* <div>
         {errors.map((error, ind) => (
@@ -73,11 +106,11 @@ const TaskForm = (props) => {
                         className='calendar-button-box'
                         onClick={e => calendarButtonToggle()}
                     >
-                        <FontAwesomeIcon 
-                        className='calendar-icon'
-                        icon={faCalendar} />
+                        <FontAwesomeIcon
+                            className='calendar-icon'
+                            icon={faCalendar} />
                         {due_date && (
-                            <p className='due_date-text'>{due_date.slice(5) + '-' + due_date.slice(0,4)}</p>
+                            <p className='due_date-text'>{due_date.slice(5) + '-' + due_date.slice(0, 4)}</p>
                         )}
                         <input
                             ref={ref}
@@ -128,7 +161,7 @@ const TaskForm = (props) => {
                         >this doesn't belong to a project</option>
                         {currUserProjectList && (
                             currUserProjectList?.map(project => (
-                                <option 
+                                <option
                                     key={project.id}
                                     value={project.id}
                                     className='option-test'
@@ -148,10 +181,18 @@ const TaskForm = (props) => {
                     value={creator_id}
                 ></input>
 
-
-                <button 
-                className='new-task-submit-button'
-                type='submit'>Create New Task!</button>
+                {task !== undefined ?
+                    <button
+                        className='new-task-submit-button'
+                        onClick={(e) => updateTask(e)}>
+                        update this task!
+                    </button> :
+                    <button
+                        className='new-task-submit-button'
+                        onClick={(e) => submitTask(e)}>
+                        create new task!
+                    </button>
+                }
             </form>
         </div>
     );
