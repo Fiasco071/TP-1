@@ -16,6 +16,7 @@ class User(db.Model, UserMixin):
     message = db.relationship('Message', back_populates='msg_owner')
     thread = db.relationship('Thread', back_populates='user')
     employee_assignment = db.relationship('EmployeeAssignment', back_populates='user')
+    comments = db.relationship('Comment', back_populates='comment_owner')
 
     @property
     def password(self):
