@@ -21,6 +21,8 @@ class Task(db.Model):
   created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
   updated_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
 
+  comments = db.relationship('Comment', back_populates='task')
+
   task_owner = db.relationship('User', back_populates='task')
   project = db.relationship('Project', back_populates='task')
   thread = db.relationship('Thread', back_populates='task')
@@ -38,6 +40,7 @@ class Task(db.Model):
       'task_owner': self.task_owner.to_dict_username(),
       'project_id': self.project_id,
       'active': self.active,
+      'comments': [comment.to_dict() for comment in self.comments],
       # 'project_detail' : self.project.to_dict_project_name(),
       'created_at': self.created_at,
       'updated_at': self.updated_at

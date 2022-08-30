@@ -13,14 +13,15 @@ class Comment(db.Model):
     updated_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
     
     comment_owner = db.relationship('User', back_populates='comments')
+    task = db.relationship('Task', back_populates='comments')
     
-    def to_dict_no_recipe(self):
+    def to_dict(self):
         return {
+            'task_id' : self.task_id,
             'id' : self.id,
             'content' : self.content,
-            'task_id' : self.task_id,
-            'user_id' :self.user_id,
+            'comment_owner' : self.comment_owner.to_dict_username(),
             'created_at' : self.created_at,
-            'comment_owner' : self.comment_owner.to_dict_username()
+            'updated_at' : self.updated_at
         }
     

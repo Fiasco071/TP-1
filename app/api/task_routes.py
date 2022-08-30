@@ -1,7 +1,8 @@
 from sqlite3 import Date
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import Task, db
+from app.forms.comment_form import CommentForm
+from app.models import Task, Comment, db
 from app.forms import CreateTaskForm
 
 task_routes = Blueprint('tasks', __name__)
@@ -103,3 +104,34 @@ def unarchive_task(id):
   db.session.add(task)
   db.session.commit()
   return task.to_dict()  
+
+
+@task_routes.route('/<int:id>/comments')
+@login_required
+def comments_for_task(id):
+  """
+  Pulls Tasks from DB
+  """
+  comments = Comment.query.filter_by(task_id=id)
+  return {'comments': [comment.to_dict() for comment in comments]}
+
+@task_routes.route('/<int:id>/comments/new', methods=['POST'])
+@login_required
+def add_comment(id):
+  """
+  Pulls task data from frontend and saves it to DB
+  """
+  form = CommentForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
+  if form.validate_on_submit():
+    comment = Comment(
+      task_id=id,
+      content=form.data['content'],
+      user_id=current_user.id,
+    )
+    print(comment.task_id)
+    db.session.add(comment)
+    db.session.commit()
+        # login_user(user)
+    return comment.to_dict()
+  return form.errors

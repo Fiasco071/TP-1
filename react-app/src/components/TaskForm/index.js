@@ -5,7 +5,6 @@ import { faCalendar } from "@fortawesome/free-regular-svg-icons";
 import { addTask, editTask } from '../../store/task';
 // import { useSelector, useDispatch } from 'react-redux'
 import './style.css'
-import { faTasks } from '@fortawesome/free-solid-svg-icons';
 
 
 const TaskForm = (props) => {
@@ -34,17 +33,6 @@ const TaskForm = (props) => {
     const [user_id, setAssignto] = useState(1);
     const [creator_id, setCreatorId] = useState(currUser_ID); // USER ID HERE
     const [project_id, setProjectId] = useState(task?.project_id ? task?.project_id : '');
-    console.log(due_date)
-    //Edit form check and value update
-    // if (props.editId !==  undefined) {
-    //     setTaskTitle(task.title)
-    //     setDd(task.due_date)
-    //     setContent(task.content)
-    //     // setAssignto(task.)
-    //     setProjectId(task.project_id)
-    // }
-
-    // console.log(due_date)
 
     const calendarButtonToggle = () => {
         ref.current.showPicker()
@@ -74,9 +62,6 @@ const TaskForm = (props) => {
             creator_id,
             project_id
         };
-
-        console.log('project_id',project_id)
-        console.log(due_date)
         props.flagSwap(false)
         dispatch(editTask(data))
     }
