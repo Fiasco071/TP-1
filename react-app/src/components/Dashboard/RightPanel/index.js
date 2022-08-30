@@ -2,23 +2,47 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCheck, faPaperclip, faFolderTree, faLink, faThumbsUp, faClock, faEllipsis, faX, faLock, faWrench } from "@fortawesome/free-solid-svg-icons";
 import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import './style.css'
 import TaskForm from "../../TaskForm";
 import { useState } from "react";
+// import fetch from 'node-fetch';
 
 const RightPanel = ({ id }) => {
 
     const task = useSelector(state => state.task[id])
     let looptime2 = [1, 1, 1, 1, 1]
     const [newTaskFlag, setNewTaskFlag] = useState(false)
+    const dispatch = useDispatch()
+    console.log(task?.comments)
+
+    /////////// SLICE THIS OFF TO COMPARTMENTALIZE IT LATER INTO NEW COMPONENT////////////////////
+
+    const [content, setContent] = useState('');
+    // const [] = useState();
+
+    const addAComment = async (e) => {
+        e.preventDefault();
+        console.log(content)
+        let url = `/api/tasks/${id}/comments/new`
+        let options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({content: content})
+        }
+        const createComment = await fetch(url, options);
+        // dispatch
+    }
+    //////////////////////////////
 
     return (
         <div className="right-panel">
             <div className="r-p-hdr">
-            {newTaskFlag && (
+                {newTaskFlag && (
                     // <TaskForm flagSwap={setNewTaskFlag}/>
-                    <TaskForm editId={task?.id} flagSwap={setNewTaskFlag}/>
+                    <TaskForm editId={task?.id} flagSwap={setNewTaskFlag} />
                 )}
                 <div className="complete-btn-box">
                     <FontAwesomeIcon icon={faCheck} />
@@ -70,25 +94,36 @@ const RightPanel = ({ id }) => {
                             <p>{task?.content}</p>
                         </div>
                         <div className="task-comment-list-box">
-                            {looptime2.map(() => (
+                            {task?.comments?.map((comment) => (
                                 <div className="task-comment-bx">
                                     <div className="cmnt-profile-blk">
                                         <div className="profile-icon-block"></div>
-                                        <p>User One</p>
+                                        <p>{comment?.comment_owner?.username}</p>
                                     </div>
-                                    <p className="cmnt-ctnt-blk">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce augue enim, scelerisque eget mi ut, tristique blandit dui. Quisque pulvinar ligula eget arcu hendrerit dapibus. Duis sodales finibus nunc, eget sodales ligula eges.</p>
+                                    <p className="cmnt-ctnt-blk">{comment?.content}</p>
                                 </div>
                             ))}
                         </div>
                     </div>
                 </div>
+                {/* below needs to be cut into new cmoponent */}
                 <div className="task-comment-input-box">
                     <div className="task-comment-input-box-main">
                         <div className="cmnt-input-box-profile-box">
                             <div className="profile-icon-block"></div>
                             <p>User One</p>
                         </div>
-                        <textarea className="cmnt-input-bx" />
+                        <form onSubmit={(e) => addAComment(e)}>
+                            <label>comment</label>
+                            <textarea 
+                                name="content"
+                                className="cmnt-input-bx" 
+                                value={content}
+                                onChange={e => setContent(e.target.value)}
+                                />
+                            <button 
+                            type='submit'>ADD</button>
+                        </form>
                     </div>
                 </div>
             </div>
