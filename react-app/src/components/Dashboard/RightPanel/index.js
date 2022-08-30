@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import './style.css'
 import TaskForm from "../../TaskForm";
 import { useState } from "react";
+import { queryATask } from "../../../store/task";
 // import fetch from 'node-fetch';
 
 const RightPanel = ({ id }) => {
@@ -33,7 +34,7 @@ const RightPanel = ({ id }) => {
             body: JSON.stringify({content: content})
         }
         const createComment = await fetch(url, options);
-        // dispatch
+        dispatch(queryATask(id))
     }
     //////////////////////////////
 

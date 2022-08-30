@@ -1,5 +1,6 @@
 // constants
 const GET_TASKS = 'task/GET_TASKS';
+const GET_SING_TASK = 'task/GET_SING_TASK';
 const ADD_TASK = 'task/ADD_TASK';
 const ARCHV_TASK = 'task/ARCHIVE_TASK';
 const UPDATE_TASK = 'task/UPDATE_TASK';
@@ -8,6 +9,11 @@ const getTasks = (data) => ({
     type: GET_TASKS,
     payload: data
 });
+
+const getATask = (data) => ({
+    type: GET_SING_TASK,
+    payload: data
+})
 
 const addATask = (data) => ({
     type: ADD_TASK,
@@ -33,6 +39,22 @@ export const dataCallTasks = () => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(getTasks(data))
+        return null;
+    } else if (response.status < 500) {
+        const data = await response.json();
+        if (data.errors) {
+            return data.errors;
+        }
+    } else {
+        return ['An error occurred. Please try again.']
+    }
+}
+
+export const queryATask = (id) => async (dispatch) => {
+    const response = await fetch(`/api/tasks/${id}`)
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(getATask(data))
         return null;
     } else if (response.status < 500) {
         const data = await response.json();
@@ -114,20 +136,25 @@ export default function reducer(state = initialState, action) {
             const newState = {};
             action.payload.tasks.forEach(task => newState[task.id] = task)
             return newState;
+        case GET_SING_TASK: {
+            const newState = { ...state };
+            newState[action.payload.id] = action.payload;
+            return newState;
+        }
         case ADD_TASK: {
-                const newState = { ...state };
-                newState[action.payload.id] = action.payload;
-                return newState;
-              }
+            const newState = { ...state };
+            newState[action.payload.id] = action.payload;
+            return newState;
+        }
         case UPDATE_TASK: {
-                const newState = { ...state };
-                newState[action.payload.id] = action.payload;
-                return newState;
-              }
+            const newState = { ...state };
+            newState[action.payload.id] = action.payload;
+            return newState;
+        }
         case ARCHV_TASK: {
-                const newState = { ...state };
-                newState[action.payload].active = false
-                return newState;
+            const newState = { ...state };
+            newState[action.payload].active = false
+            return newState;
         }
         default:
             return state;
