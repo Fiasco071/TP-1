@@ -5,6 +5,7 @@ import { faCalendar } from "@fortawesome/free-regular-svg-icons";
 import { addTask, editTask } from '../../store/task';
 // import { useSelector, useDispatch } from 'react-redux'
 import './style.css'
+import { faTasks } from '@fortawesome/free-solid-svg-icons';
 
 
 const TaskForm = (props) => {
@@ -15,13 +16,16 @@ const TaskForm = (props) => {
 
     const task = useSelector(state => state.task[props.editId])
 
-    let test_date
-    let due_date_parsed
-    if (task?.due_date !== undefined) {
-        test_date = new Date(task?.due_date)
+    console.log(task)
+    let due_date_parsed = undefined;
+    if (task !== undefined && task?.due_date !== null) {
+        console.log(task)
+        console.log('we got here')
+        const test_date = new Date(task?.due_date)
         due_date_parsed = test_date.getFullYear() + '-' + (test_date.getMonth()+1) + '-' + (test_date.getDate() + 1 )
     }
 
+  
     const dispatch = useDispatch()
     const ref = useRef(null)
     const [title, setTaskTitle] = useState(task?.title);
@@ -29,8 +33,8 @@ const TaskForm = (props) => {
     const [content, setContent] = useState(task?.content);
     const [user_id, setAssignto] = useState(1);
     const [creator_id, setCreatorId] = useState(currUser_ID); // USER ID HERE
-    const [project_id, setProjectId] = useState(task?.project_id);
-
+    const [project_id, setProjectId] = useState(task?.project_id ? task?.project_id : '');
+    console.log(due_date)
     //Edit form check and value update
     // if (props.editId !==  undefined) {
     //     setTaskTitle(task.title)
@@ -40,7 +44,7 @@ const TaskForm = (props) => {
     //     setProjectId(task.project_id)
     // }
 
-    console.log(due_date)
+    // console.log(due_date)
 
     const calendarButtonToggle = () => {
         ref.current.showPicker()
@@ -55,6 +59,7 @@ const TaskForm = (props) => {
             creator_id,
             project_id
         };
+
         props.flagSwap(false)
         dispatch(addTask(data))
     };
@@ -69,6 +74,9 @@ const TaskForm = (props) => {
             creator_id,
             project_id
         };
+
+        console.log('project_id',project_id)
+        console.log(due_date)
         props.flagSwap(false)
         dispatch(editTask(data))
     }
