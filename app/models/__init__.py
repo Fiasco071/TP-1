@@ -6,3 +6,4 @@ from .project import Project
 from .employee_assignment import EmployeeAssignment
 from .thread import Thread
 from .direct_message import DirectMessage
+from .comment import Comment
