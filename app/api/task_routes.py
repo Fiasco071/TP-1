@@ -28,6 +28,16 @@ def tasks():
     filter_by(active=True)
   return {'tasks': [task.to_dict() for task in tasks]}
 
+@task_routes.route('/<int:id>')
+@login_required
+def singleTask(id):
+  """
+  Pulls single task from DB
+  """
+  task = Task.query.get(id)
+  return task.to_dict()
+
+
 @task_routes.route('/new', methods=['POST'])
 @login_required
 def add_task():
