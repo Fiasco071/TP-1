@@ -7,6 +7,7 @@ import './style.css'
 import TaskForm from "../../TaskForm";
 import { useState } from "react";
 import { queryATask } from "../../../store/task";
+import CommentForm from "../../CommentForm";
 // import fetch from 'node-fetch';
 
 const RightPanel = ({ id }) => {
@@ -15,7 +16,6 @@ const RightPanel = ({ id }) => {
     let looptime2 = [1, 1, 1, 1, 1]
     const [newTaskFlag, setNewTaskFlag] = useState(false)
     const dispatch = useDispatch()
-    console.log(task?.comments)
 
     /////////// SLICE THIS OFF TO COMPARTMENTALIZE IT LATER INTO NEW COMPONENT////////////////////
 
@@ -24,17 +24,26 @@ const RightPanel = ({ id }) => {
 
     const addAComment = async (e) => {
         e.preventDefault();
-        console.log(content)
         let url = `/api/tasks/${id}/comments/new`
+        let data = {
+            content,
+            task_id : id,
+        }
         let options = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({content: content})
+            body: JSON.stringify(data)
         }
-        const createComment = await fetch(url, options);
+
+        const createComment = await fetch(url, options)
         dispatch(queryATask(id))
+    }
+
+    const updateAComment = async (e) => {
+        e.preventDefault();
+        // let url = `/api/tasks/comments/${}`
     }
     //////////////////////////////
 
@@ -108,6 +117,7 @@ const RightPanel = ({ id }) => {
                     </div>
                 </div>
                 {/* below needs to be cut into new cmoponent */}
+                <CommentForm id={id} />
                 <div className="task-comment-input-box">
                     <div className="task-comment-input-box-main">
                         <div className="cmnt-input-box-profile-box">
@@ -122,6 +132,11 @@ const RightPanel = ({ id }) => {
                                 value={content}
                                 onChange={e => setContent(e.target.value)}
                                 />
+                            <input
+                                type='hidden'
+                                value={id}
+                                name='task_id'
+                            ></input>
                             <button 
                             type='submit'>ADD</button>
                         </form>
