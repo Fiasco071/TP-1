@@ -9,6 +9,7 @@ import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 import TaskForm from "../TaskForm";
 import { logout } from "../../store/session";
+import LeftPanel from "./LeftPanel";
 
 const Dashboard = () => {
     const dispatch = useDispatch();
@@ -66,6 +67,7 @@ const Dashboard = () => {
                     </div>
                 </div>
             </div>
+            <LeftPanel />
             <div className="dashb-cnt-blck">
                 <div className="viewport-blk">
                     <div className="left-panel">
