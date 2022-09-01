@@ -8,6 +8,8 @@ class Project(db.Model):
   title = db.Column(db.String(100), nullable=False)
   content = db.Column(db.String(1000), nullable=True)
   due_date = db.Column(db.DateTime, nullable=True)
+  active = db.Column(db.Boolean, default=True, nullable=False)
+  complete = db.Column(db.Boolean, default=False, nullable=False)
   user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
   created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
   updated_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
@@ -25,6 +27,8 @@ class Project(db.Model):
       'title': self.title,
       'content': self.content,
       'due_date': self.due_date,
+      'active': self.active,
+      'complete': self.complete,
       'created_at': self.created_at,
       'user_id': self.user_id,
       'updated_at': self.updated_at,
@@ -32,7 +36,7 @@ class Project(db.Model):
       # 'tasks': [tsk.to_dict() for tsk in self.task],
       # 'threads': [thrd.to_dict() for thrd in self.thread]
     }
-    
+
   def to_dict_project_name(self):
     return {
       'title': self.title,
