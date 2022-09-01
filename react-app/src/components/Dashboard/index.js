@@ -73,40 +73,6 @@ const Dashboard = () => {
             <div className="dashb-cnt-blck">
                 <div className="viewport-blk">
                     <LeftPanel selectTask={selectTask.bind()} />
-                    {/* <div className="left-panel">
-                        <div className="l-p-hdr">
-                            <div className="new-task-btn" onClick={e => clickNewTask(e)}>
-                                + Add Task
-                            </div>
-                        </div>
-                        <div className="l-p-ctnt-blk">
-                            <div className="l-p-ctnt-filter-bar">
-                                <FontAwesomeIcon className='task-list-chk-mark' icon={faCaretDown} />
-                                <p>Recently Assigned</p>
-                            </div>
-                            <div className="l-p-ctnt-main">
-                                {filteredTasks?.map((task) => (
-                                    <div
-                                        className="task-list-lg"
-                                        onClick={() => setTaskId(task?.id)}>
-                                        <div className="task-list-lg-title-blk">
-                                            <FontAwesomeIcon                
-                                                className='task-list-chk-mark'
-                                                icon={faCheckCircle} 
-                                                onClick={() => dispatch(archiveTask(task?.id))}
-                                                />
-                                            <p className="task-title-txt">{task?.title}</p>
-                                        </div>
-                                        <div className="task-info-blk">
-                                            <p className="tag-txt">Project</p>
-                                            <p className="tag-txt">Study</p>
-                                            <p className="task-dd-txt">{task?.due_date?.slice(4, 11)}</p>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </div> */}
                 </div>
                 <div className="viewport-blk">
                     <RightPanel id={taskId} />

@@ -7,7 +7,7 @@
     position: absolute;
     top: 20%;
     left: calc(50% - 230px);
-    visibility: hidden;
+    /* visibility: hidden; */
 }
 
 .form-box-txt {

@@ -5,7 +5,7 @@ import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import './style.css'
 import TaskForm from "../../TaskForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { queryATask } from "../../../store/task";
 import CommentForm from "../../CommentForm";
 // import fetch from 'node-fetch';
@@ -15,31 +15,46 @@ const RightPanel = ({ id }) => {
     const task = useSelector(state => state.task[id])
     let looptime2 = [1, 1, 1, 1, 1]
     const [newTaskFlag, setNewTaskFlag] = useState(false)
+    const [commentList, setCommentList] = useState([])
+    const [commentBoxToggle, setCommentBoxToggle] = useState(false)
     const dispatch = useDispatch()
+    
+    useEffect(() => {
+        setCommentList(task?.comments?.reverse())
+    }, [id, task])
 
-    /////////// SLICE THIS OFF TO COMPARTMENTALIZE IT LATER INTO NEW COMPONENT////////////////////
 
     const [content, setContent] = useState('');
-    // const [] = useState();
 
-    const addAComment = async (e) => {
-        e.preventDefault();
-        let url = `/api/tasks/${id}/comments/new`
-        let data = {
-            content,
-            task_id : id,
-        }
-        let options = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        }
-
-        const createComment = await fetch(url, options)
-        dispatch(queryATask(id))
+    
+    const toggleComment = (v) => {
+        setCommentBoxToggle(v)
     }
+    
+    const checkID = () => {
+        if (id) {
+            setCommentBoxToggle(!commentBoxToggle)
+        }
+    }
+    // const addAComment = async (e) => {
+    //     e.preventDefault();
+    //     let url = `/api/tasks/${id}/comments/new`
+    //     let data = {
+    //         content,
+    //         task_id : id,
+    //     }
+    //     let options = {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify(data)
+    //     }
+
+    //     const createComment = await fetch(url, options)
+    //     dispatch(queryATask(id))
+    //     setCommentBoxToggle(false)
+    // }
 
     const updateAComment = async (e) => {
         e.preventDefault();
@@ -103,43 +118,24 @@ const RightPanel = ({ id }) => {
                             <p>Description</p>
                             <p>{task?.content}</p>
                         </div>
+                        {commentBoxToggle && (
+                            <CommentForm id={task?.id} toggleComment={toggleComment}/>
+                        )}
                         <div className="task-comment-list-box">
-                            {task?.comments?.map((comment) => (
+                            <h2
+                            onClick={() => checkID()}
+                            >comment box</h2>
+                            {commentList?.map((comment) => (
                                 <div className="task-comment-bx">
                                     <div className="cmnt-profile-blk">
                                         <div className="profile-icon-block"></div>
                                         <p>{comment?.comment_owner?.username}</p>
                                     </div>
                                     <p className="cmnt-ctnt-blk">{comment?.content}</p>
+                                    <p>{comment?.created_at}</p>
                                 </div>
                             ))}
                         </div>
-                    </div>
-                </div>
-                {/* below needs to be cut into new cmoponent */}
-                <CommentForm id={id} />
-                <div className="task-comment-input-box">
-                    <div className="task-comment-input-box-main">
-                        <div className="cmnt-input-box-profile-box">
-                            <div className="profile-icon-block"></div>
-                            <p>User One</p>
-                        </div>
-                        <form onSubmit={(e) => addAComment(e)}>
-                            <label>comment</label>
-                            <textarea 
-                                name="content"
-                                className="cmnt-input-bx" 
-                                value={content}
-                                onChange={e => setContent(e.target.value)}
-                                />
-                            <input
-                                type='hidden'
-                                value={id}
-                                name='task_id'
-                            ></input>
-                            <button 
-                            type='submit'>ADD</button>
-                        </form>
                     </div>
                 </div>
             </div>
