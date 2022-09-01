@@ -41,7 +41,7 @@ class Task(db.Model):
       'project_id': self.project_id,
       'active': self.active,
       'comments': [comment.to_dict() for comment in self.comments],
-      # 'project_detail' : self.project.to_dict_project_name(),
+      'project_detail' : self.project.to_dict_project_name(),
       'created_at': self.created_at,
       'updated_at': self.updated_at
     }

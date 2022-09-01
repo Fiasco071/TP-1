@@ -3,27 +3,31 @@ import { useDispatch } from "react-redux";
 import { queryATask } from "../../store/task";
 import './style.css'
 
-const CommentForm = ({ id }) => {
+const CommentForm = ({ id, toggleComment}) => {
     const dispatch = useDispatch()
     const [content, setContent] = useState('');
 
     const addAComment = async (e) => {
         e.preventDefault();
-        let url = `/api/tasks/${id}/comments/new`
-        let data = {
-            content,
-            task_id: id,
+        
+        if (content.length) {
+            let url = `/api/tasks/${id}/comments/new`
+            let data = {
+                content,
+                task_id: id,
+            }
+            let options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }
+    
+            const createComment = await fetch(url, options)
+            dispatch(queryATask(id))
+            toggleComment(false)
         }
-        let options = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        }
-
-        const createComment = await fetch(url, options)
-        dispatch(queryATask(id))
     }
 
 
@@ -52,10 +56,12 @@ const CommentForm = ({ id }) => {
                 </div>
                 <div className="comment-button-box">
                     <button
+                        onClick={e => toggleComment(false)}
                         className="cancel-button">cancel</button>
                     <button
                         onClick={(e) => addAComment(e)}
-                        className={`submit-button ${content.length > 0 ? 'on' : 'off'}`}>comment</button>
+                        className={`submit-button ${content.length > 0 ? 'on' : 'off'}`}
+                        >comment</button>
                 </div>
             </div>
         </div>

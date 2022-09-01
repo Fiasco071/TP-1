@@ -6,12 +6,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretRight, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import './style.css'
 import { archiveTask, dataCallTasks } from "../../../store/task";
+import TaskForm from "../../TaskForm";
 
-const LeftPanel = () => {
+const LeftPanel = ({selectTask}) => {
     const dispatch = useDispatch();
     const tasks = useSelector(state => Object.values(state.task))
     const filteredTasks = tasks?.filter(task => task?.active === true)
-    const [taskId, setTaskId] = useState();
     const [newTaskFlag, setNewTaskFlag] = useState(false)
     const [listView, setListView] = useState('list');
 
@@ -23,10 +23,11 @@ const LeftPanel = () => {
     const clickNewTask = () => {
         setNewTaskFlag(!newTaskFlag)
     }
-
-
     return (
         <div className='task-list-box'>
+            {newTaskFlag && (
+                    <TaskForm flagSwap={setNewTaskFlag}/>
+                )}
             <h1 className='task-list-title-text'>tasks</h1>
             <div className='task-list-box-ctnr'>
                 <div className='task-list-menu-slider'>
@@ -36,7 +37,7 @@ const LeftPanel = () => {
                 <div className='task-list-container'>
                     {filteredTasks?.map((task) => (
                         <div 
-                        onClick={() => setTaskId(task?.id)}
+                        onClick={() => selectTask(task?.id)}
                         className='task-box'>
                             <div className='checkbox-block'>
                                 <FontAwesomeIcon
@@ -51,7 +52,7 @@ const LeftPanel = () => {
                                     <p className='due_date_txt'>{task?.due_date?.slice(4, 11)}</p>
                                 </div>
                                 <div className='tl-task-tag-box'>
-                                    <div>project here</div>
+                                    <div>{task?.project_id}</div>
                                     <div>Incomplete</div>
                                     <FontAwesomeIcon
                                         className="next-icon"
