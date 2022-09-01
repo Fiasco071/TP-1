@@ -5,6 +5,11 @@
     --fontColor: #535151;
     --fontColorLight: #ebe7f5;
     --formBG: #6d4aff;
+    --formBGfaded: #8f82c2;
+    --formBG2: #5FDCC6;
+    --formBG2faded: #c6f8ef;
+    --formBGGrey: #F8F8F8;
+    --formBG2Greyfaded: #ffffff;
 }
 
 body {

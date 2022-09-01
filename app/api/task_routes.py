@@ -116,6 +116,8 @@ def unarchive_task(id):
   return task.to_dict()  
 
 
+######################### comments
+
 @task_routes.route('/<int:id>/comments')
 @login_required
 def comments_for_task(id):
@@ -139,9 +141,46 @@ def add_comment(id):
       content=form.data['content'],
       user_id=current_user.id,
     )
-    print(comment.task_id)
     db.session.add(comment)
     db.session.commit()
         # login_user(user)
     return comment.to_dict()
   return form.errors
+
+@task_routes.route('/comments/<int:id>', methods=['POST'])
+@login_required
+def update_comment(id):
+  """
+  Pulls task data from frontend and update it on DB
+  """
+  form = CommentForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
+  if form.validate_on_submit():
+    comment = Comment.query.get(id)
+    comment.content=form.data['content']
+    db.session.add(comment)
+    db.session.commit()
+        # login_user(user)
+    return comment.to_dict()
+  return form.errors
+
+# @task_routes.route('/<int:id>/comments', methods=['POST'])
+# @login_required
+# def add_comment(id):
+#   """
+#   Pulls task data from frontend and saves it to DB
+#   """
+#   form = CommentForm()
+#   form['csrf_token'].data = request.cookies['csrf_token']
+#   if form.validate_on_submit():
+#     comment = Comment(
+#       task_id=id,
+#       content=form.data['content'],
+#       user_id=current_user.id,
+#     )
+#     print(comment.task_id)
+#     db.session.add(comment)
+#     db.session.commit()
+#         # login_user(user)
+#     return comment.to_dict()
+#   return form.errors
