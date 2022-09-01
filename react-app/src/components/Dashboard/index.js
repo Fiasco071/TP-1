@@ -1,5 +1,5 @@
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import './style.css'
 import { archiveTask, dataCallTasks } from '../../store/task'
@@ -19,7 +19,7 @@ const Dashboard = () => {
     const [newTaskFlag, setNewTaskFlag] = useState(false)
     const [listView, setListView] = useState('list');
 
-    
+
     useEffect(() => {
         dispatch(dataCallTasks())
     }, [dispatch])
@@ -27,12 +27,15 @@ const Dashboard = () => {
     const clickNewTask = () => {
         setNewTaskFlag(!newTaskFlag)
     }
-    
+
+    const selectTask = (v) => {
+        setTaskId(v)
+    }
 
     return (
         <div className="dashboard">
             <div className="log-out-button"
-            onClick={() => dispatch(logout())}
+                onClick={() => dispatch(logout())}
             >logout</div>
             <div className="dashb-hdr-blck"
                 onClick={() => setNewTaskFlag(false)}
@@ -67,10 +70,10 @@ const Dashboard = () => {
                     </div>
                 </div>
             </div>
-            <LeftPanel />
             <div className="dashb-cnt-blck">
                 <div className="viewport-blk">
-                    <div className="left-panel">
+                    <LeftPanel selectTask={selectTask.bind()} />
+                    {/* <div className="left-panel">
                         <div className="l-p-hdr">
                             <div className="new-task-btn" onClick={e => clickNewTask(e)}>
                                 + Add Task
@@ -103,16 +106,14 @@ const Dashboard = () => {
                                 ))}
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="viewport-blk">
                     <RightPanel id={taskId} />
                 </div>
             </div>
             <div className="dashb-ftr-blck">
-                {newTaskFlag && (
-                    <TaskForm flagSwap={setNewTaskFlag}/>
-                )}
+
             </div>
         </div>
     )
