@@ -64,7 +64,7 @@ body {
     background-color: rgb(84, 75, 110);
     border-radius: 15px;
     /* border: 2px dashed white; */
-    box-shadow: 5px 5px 4px rgb(41, 35, 53), -3px 5px 4px rgb(41, 35, 53);  
+    box-shadow: 5px 5px 4px rgb(41, 35, 53), -3px 5px 4px rgb(41, 35, 53);
 }
 
 .profile-option-block {
@@ -106,7 +106,7 @@ body {
     background-color: rgb(84, 75, 110);
     border-radius: 15px;
     /* border: 2px dashed white; */
-    box-shadow: 5px 5px 4px rgb(41, 35, 53), -3px 5px 4px rgb(41, 35, 53);  
+    box-shadow: 5px 5px 4px rgb(41, 35, 53), -3px 5px 4px rgb(41, 35, 53);
     width: 500px;
     height: 80px;
     display: flex;
@@ -341,4 +341,10 @@ body {
 
 .task-detail-title-txt {
     margin: 20px 20px;
+}
+
+#direct-msg-test {
+    position: fixed;
+    top: 15px;
+    right: 15px;
 }

@@ -11,6 +11,7 @@ import TaskForm from "../TaskForm";
 import { logout } from "../../store/session";
 import LeftPanel from "./LeftPanel";
 import DashBoardTest from "../DashBoardTest";
+import DirectMessage from "../DirectMessage";
 
 const Dashboard = () => {
     const dispatch = useDispatch();
@@ -70,6 +71,9 @@ const Dashboard = () => {
                         <div className="dashb-hdr-fnc-blck-buttons"></div>
                     </div>
                 </div>
+            </div>
+            <div id="direct-msg-test">
+                <DirectMessage />
             </div>
             <div className="dashb-cnt-blck">
                 <div className="viewport-blk">
