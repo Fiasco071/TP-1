@@ -3,6 +3,7 @@ from app.models import db, Project
 from flask import Blueprint, request
 from flask_login import current_user
 from app.forms.project_form import ProjectForm
+
 project_routes = Blueprint('projects', __name__)
 
 def validation_errors_to_error_messages(validation_errors):
