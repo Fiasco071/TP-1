@@ -2,6 +2,7 @@ const GET_PROJECTS = 'project/GET_PROJECTS';
 const ADD_PROJECT = 'project/ADD_PROJECT';
 const UPDATE_PROJECT = 'project/UPDATE_PROJECT';
 const ARCHV_PROJECT = 'project/ARCHV_PROJECT';
+const COMPLETE_PROJECT = 'project/COMPLETE_PROJECT';
 
 // GET PROJECTS
 const getProjects = (data) => ({
@@ -25,7 +26,7 @@ export const getAllProjects = () => async (dispatch) => {
     }
 }
 
-//CREATE PROJECT
+// CREATE PROJECT
 const addProject = (data) => ({
     type: ADD_PROJECT,
     payload: data
@@ -53,7 +54,7 @@ export const createProject = (data) => async (dispatch) => {
     }
 }
 
-//UPDATE PROJECT
+// UPDATE PROJECT
 const updateAProject = (data) => ({
     type: UPDATE_PROJECT,
     payload: data
@@ -81,8 +82,77 @@ export const editProject = (data) => async (dispatch) => {
     }
 }
 
-//ARCHIVE PROJECT
-const archiveProject = (data) => ({
+// ARCHIVE PROJECT
+const archvProject = (data) => ({
     type: ARCHV_PROJECT,
     payload: data
 });
+
+export const archiveProject = (id) => async (dispatch) => {
+    const response = await fetch(`/api/projects/${id}/archive`, {
+        method: 'PUT'
+    })
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(archvProject(id))
+        if (data.errors) {
+            return data.errors;
+        }
+    } else {
+        return ['An error occurred. Please try again.']
+    }
+}
+
+// COMPLETE PROJECT
+const finishProject = (data) => ({
+    type: COMPLETE_PROJECT,
+    payload: data
+});
+
+export const completeProject = (id) => async (dispatch) => {
+    const response = await fetch(`/api/projects/${id}/complete`, {
+        method: 'PUT'
+    })
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(finishProject(id))
+        if (data.errors) {
+            return data.errors;
+        }
+    } else {
+        return ['An error occurred. Please try again.']
+    }
+}
+
+const initialState = { projects: null };
+
+export default function reducer(state = initialState, action) {
+    switch (action.type) {
+        case GET_PROJECTS:
+            const newState = {};
+            action.payload.projects.forEach(project => newState[project.id] = project)
+            return newState;
+        case ADD_PROJECT: {
+            const newState = { ...state };
+            newState[action.payload.id] = action.payload;
+            return newState;
+        }
+        case UPDATE_PROJECT: {
+            const newState = { ...state };
+            newState[action.payload.id] = action.payload;
+            return newState;
+        }
+        case ARCHV_PROJECT: {
+            const newState = { ...state };
+            newState[action.payload].active = false
+            return newState;
+        }
+        case COMPLETE_PROJECT: {
+            const newState = { ...state };
+            newState[action.payload].complete = true
+            return newState;
+        }
+        default:
+            return state;
+    }
+}
