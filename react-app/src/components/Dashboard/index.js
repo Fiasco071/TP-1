@@ -10,6 +10,7 @@ import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 import TaskForm from "../TaskForm";
 import { logout } from "../../store/session";
 import LeftPanel from "./LeftPanel";
+import DashBoardTest from "../DashBoardTest";
 
 const Dashboard = () => {
     const dispatch = useDispatch();
@@ -81,6 +82,7 @@ const Dashboard = () => {
             <div className="dashb-ftr-blck">
 
             </div>
+            <DashBoardTest />
         </div>
     )
 }
