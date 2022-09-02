@@ -7,7 +7,7 @@ import project from './project';
 const rootReducer = combineReducers({
   session,
   task,
-  project  // Projects: projectReducer
+  project
 });
 
 
