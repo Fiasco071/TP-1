@@ -1,4 +1,3 @@
-from asyncio import SendfileNotAvailableError
 from .db import db
 from sqlalchemy.sql import func
 

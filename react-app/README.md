@@ -1,7 +1,8 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Install flask-socketio in your backend.
+pipenv install flask-socketio
 
-Your React App will live here.  While is development, run this application from this location using `npm start`.
+# Install socket.io-client in your frontend.
+npm install socket.io-client
 
-No environment variables are needed to run this application in development, but be sure to set the REACT_APP_BASE_URL environment variable in your dockerfile!
-
-This app will be automatically built when you push to your main branch on Github. 
+# Install eventlet in your backend. (Specifying the version is necessary here since the latest version will not be compatible with your application).
+pipenv install eventlet==0.30.2
