@@ -17,14 +17,19 @@ const DashBoardTest = () => {
     const tasks = useSelector(state => Object.values(state?.task))
     const filteredTasks = tasks?.filter(task => task?.active === true)
     
-    // function dateFix() {
-    //     tasks?.forEach(task => {
-    //         let new_date = new Date(task?.due_date)
-    //         task.due_date = new_date
-    //     }
-    //     return;
-    // } 
     
+    const isToday = (date) => {
+        const today = new Date()
+        return date.getFullYear() == today.getFullYear() &&
+        date.getMonth() == today.getMonth() &&
+        date.getDate() + 1 == today.getDate()
+    }
+    
+    const dueTodayTasks = tasks?.filter(task => {
+        const date = new Date(task?.due_date)
+        return isToday(date)
+    }) 
+
 
     const calendarTasksList = tasks?.map(task => {
         let data = {
@@ -32,7 +37,6 @@ const DashBoardTest = () => {
             end: moment(task?.due_date).add(1, 'days'),
             title: task?.title
         }
-        console.log(data.start)
         return (data)
     })
     useEffect(() => {
@@ -101,13 +105,18 @@ const DashBoardTest = () => {
                                     <div className='recent-tasks-box'>
                                         <h2 className='widget-box-title-txt'>due today</h2>
                                         <div className='widget-content-wrapper'>
-                                            {loop.map((stuff, idx) => (
-                                                <div className='db-sing-task'>
-                                                    <p className='db-sing-task-title-txt'> a task to do</p>
+                                            {dueTodayTasks?.map((task, idx) => (
+                                                <div className='db-sing-task' key={idx}>
+                                                    <p className='db-sing-task-title-txt'>{task?.title.slice(0,18)}{task?.title.length> 18? '...' : ''}</p>
                                                     <div className='db-sing-task-tag-date'>
-                                                        <p className={`db-sing-task-tag-txt color-${colorLoop[idx]}`}>project1</p>
+                                                        <p className={`db-sing-task-tag-txt color-${colorLoop[idx]}`}>{task?.project_detail.title.slice(0,8)}</p>
                                                         <p className={`db-sing-task-tag-txt  color-${colorLoop2[idx]}`}>sometag</p>
-                                                        <p className='db-sing-task-dd-txt'> 2022-08-30</p>
+                                                        <p className='db-sing-task-dd-txt'> 
+                                                            {`${new Date(task?.due_date).getFullYear()} / 
+                                                            ${new Date(task?.due_date).getMonth() + 1 < 10 ? '0'+(new Date(task?.due_date).getMonth() + 1 ): new Date(task?.due_date).getMonth() + 1} /
+                                                            ${new Date(task?.due_date).getDate() < 10 ? '0'+(new Date(task?.due_date).getDate() + 1): new Date(task?.due_date).getDate() + 1}`} 
+
+                                                        </p>
                                                     </div>
                                                 </div>
                                             ))}
