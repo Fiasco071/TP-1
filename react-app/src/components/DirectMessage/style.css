@@ -1,0 +1,149 @@
+#dm-header {
+    background: #6d4aff;
+    display: flex;
+    padding: 15px;
+    border-radius: 10px 10px 0 0;
+}
+
+#dm-grp-img {
+    position: relative;
+    width: 125px;
+    height: 45px;
+}
+
+#dm-grp-img img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: solid 2px white;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#dm-grp-img .i1 {
+    z-index: 1;
+}
+
+#dm-grp-img .i2 {
+    left: 40px;
+}
+
+#dm-grp-img .i3 {
+    left: 80px;
+}
+
+#dm-grp-info {
+    padding: 0 15px;
+}
+
+#dm-grp-name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+#dm-chatbox {
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-height: 300px;
+    overflow-y:scroll;
+}
+
+#dm-chatbox #dm-chat {
+    display: flex;
+    gap: 15px;
+}
+
+#dm-chatbox img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: solid 2px white;
+}
+
+#dm-chatbox #dm-msg {
+    background: rgb(84, 75, 110);;
+    max-width: 80%;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    font-size: 13px;
+}
+
+#dm-msg ion-icon {
+    font-size: 20px;
+    color: #3a384c;
+    position: absolute;
+    top: 10px;
+}
+
+#dm-chatbox #dm-chat:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+#dm-chatbox #dm-chat:nth-child(odd) ion-icon {
+    left: -14px;
+}
+
+#dm-chatbox #dm-chat:nth-child(even) ion-icon {
+    right: -14px;
+    transform: rotate(180deg);
+}
+
+#dm-chat-form {
+  background: #3a384c;
+  padding: 10px;
+  border-radius: 0 0 10px 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+#dm-chat-input {
+    font-size: 14px;
+    color: white;
+    background: #3a384c;
+    width: 90%;
+    padding: 20px;
+    border-radius: 10px 10px 10px 10px;
+}
+
+#dm-submit {
+    background: rgb(84, 75, 110);;
+    color: #ff6969;
+    border: solid 2px #ff6969;
+    border-radius: 50px;
+    padding: 10px 30px;
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+}
+
+#dm-submit:hover {
+    color: white;
+    background: #ff6969;
+}
+
+#dm-form {
+    display: flex;
+}
+
+#dm-close {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    font-size: 29px;
+    border-radius: 50%;
+    background: #ff6969;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
