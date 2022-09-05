@@ -344,7 +344,24 @@ body {
 }
 
 #direct-msg-test {
+    width: 100%;
+    max-width: 450px;
+    background: #282639;
+    margin: 0 auto;
+    margin-top: 50px;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: #292739 0 10px 20px;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: open sans;
+    transition: ease 0.5s;
+    text-decoration: none;
+    list-style-type: none;
+    font-size: 12px;
+    font-weight: 300;
+    color: white;
     position: fixed;
-    top: 15px;
+    bottom: 15px;
     right: 15px;
 }
