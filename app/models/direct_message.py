@@ -23,3 +23,6 @@ class DirectMessage(db.Model):
       'created_at': self.created_at,
       'updated_at': self.updated_at
     }
+
+  #def __repr__(self):
+    # return r'<Update "%s" at %s>' % (self.content, self.timestamp)

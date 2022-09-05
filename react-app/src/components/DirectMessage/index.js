@@ -26,7 +26,7 @@ const DirectMessage = () => {
 
     const sendChat = (e) => {
         e.preventDefault()
-        socket.emit("dm", { user: user.username, msg: chatInput });
+        socket.emit("dm", { user: user.username, content: chatInput });
         setChatInput("")
     }
 
@@ -34,7 +34,7 @@ const DirectMessage = () => {
         <div>
             <div>
                 {messages.map((message, ind) => (
-                    <div key={ind}>{`${message.user}: ${message.msg}`}</div>
+                    <div key={ind}>{`${message.user}: ${message.content}`}</div>
                 ))}
             </div>
             <form onSubmit={sendChat}>
