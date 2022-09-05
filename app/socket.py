@@ -14,8 +14,14 @@ else:
 
 socketio = SocketIO(cors_allowed_origins=origins)
 
+# Needs redux store
+# User adds up to 4 users on frontend, after adding first user, creates a room with 2 ids, user and receiver, and 2 null ids ->
+# Rooms Table (up to 4 users) ->
+# Messages (each user pulls the messages from that room), Messages get assigned to a Room ID
+
 @socketio.on("dm")
 def handle_chat(data):
+    direct_messages = DirectMessage.query.filter(DirectMessage.sender == current_user.id).all()
     emit("dm", data, broadcast=True)
 
 
