@@ -1,5 +1,5 @@
 import os
-from flask_socketio import SocketIO, emit
+from flask_socketio import SocketIO, emit, send
 from app.models import db, DirectMessage
 from flask_login import current_user
 from flask_socketio import join_room, leave_room
@@ -23,6 +23,9 @@ def handle_chat(data):
 # The WebSocket transport is not available, you must install a WebSocket server that is compatible with your async mode to enable it.
 # See the documentation for details. (further occurrences of this error will be logged with level INFO)
 
+
+#   to individual socketid (private message)
+#   io.to(socketId).emit(/* ... */);
 
 # @socketio.on('join')
 # def on_join(data):
@@ -57,3 +60,25 @@ def handle_chat(data):
 #   emit('dm', message, broadcast = True)
 #   # emit('add_element', message, to = message["roomid"], broadcast = True)
 #   save_message(message)
+
+
+#   // to all clients in the current namespace except the sender
+#   socket.broadcast.emit(/* ... */);
+
+#   // to all clients in room1 except the sender
+#   socket.to("room1").emit(/* ... */);
+
+#   // to all clients in room1 and/or room2 except the sender
+#   socket.to("room1").to("room2").emit(/* ... */);
+
+#   // to all clients in room1
+#   io.in("room1").emit(/* ... */);
+
+#   // to all clients in namespace "myNamespace"
+#   io.of("myNamespace").emit(/* ... */);
+
+#   // to all clients in room1 in namespace "myNamespace"
+#   io.of("myNamespace").to("room1").emit(/* ... */);
+
+#   // to individual socketid (private message)
+#   io.to(socketId).emit(/* ... */);

@@ -11,12 +11,14 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
     clearance = db.Column(db.Integer, nullable=False)
+
     task = db.relationship('Task', back_populates='task_owner')
     projects = db.relationship('Project', back_populates="user")
     message = db.relationship('Message', back_populates='msg_owner')
     thread = db.relationship('Thread', back_populates='user')
     employee_assignment = db.relationship('EmployeeAssignment', back_populates='user')
     comments = db.relationship('Comment', back_populates='comment_owner')
+    # direct_message = db.relationship('DirectMessage', back_populates='user')
 
     @property
     def password(self):
@@ -42,3 +44,6 @@ class User(db.Model, UserMixin):
         return {
             'username': self.username
         }
+
+    def all_users(self):
+        pass
