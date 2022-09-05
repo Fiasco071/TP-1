@@ -3,16 +3,24 @@ import { useSelector } from "react-redux";
 import { io } from 'socket.io-client';
 import './style.css';
 
-
 let socket;
 
 const DirectMessage = () => {
     const [chatInput, setChatInput] = useState("");
     const [messages, setMessages] = useState([]);
     const user = useSelector(state => state.session.user)
+    const [recipient, setRecipient] = useState(2)  // useState for recipients id, quick: dropdown selector, best: input with autocomplete
+
+
 
     useEffect(() => {
         socket = io();
+
+        // io.on("connection", socket => {
+        //     socket.on("private message", (anotherSocketId, msg) => {
+        //       socket.to(anotherSocketId).emit("private message", socket.id, msg);
+        //     });
+        //   });
 
         socket.on("dm", (chat) => {
             setMessages(messages => [...messages, chat])
@@ -29,7 +37,7 @@ const DirectMessage = () => {
 
     const sendChat = (e) => {
         e.preventDefault()
-        socket.emit("dm", { user: user.username, content: chatInput }); // id: user.id
+        socket.emit("dm", { id: user.id, user: user.username, content: chatInput }); // include recipient id here
         setChatInput("")
     }
 
