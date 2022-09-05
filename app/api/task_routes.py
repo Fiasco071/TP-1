@@ -4,6 +4,7 @@ from flask_login import login_required, current_user
 from app.forms.comment_form import CommentForm
 from app.models import Task, Comment, db
 from app.forms import CreateTaskForm
+from app.models.track_task import TrackedTask
 
 task_routes = Blueprint('tasks', __name__)
 
@@ -76,13 +77,6 @@ def update_task(id):
     task.content=form.data['content'],
     task.creator_id=form.data['creator_id'],
     task.project_id=form.data['project_id']
-    # task = Task(
-    #   title=form.data['title'],
-    #   due_date=form.data['due_date'],
-    #   content=form.data['content'],
-    #   creator_id=form.data['creator_id'],
-    #   project_id=form.data['project_id']
-    # )
     db.session.add(task)
     db.session.commit()
         # login_user(user)
@@ -91,7 +85,7 @@ def update_task(id):
 
 
 @task_routes.route('/archive/<int:id>', methods=['PUT'])
-# @login_required
+@login_required
 def archive_task(id):
   """
   Archives a task and marks it INACTIVE
@@ -104,7 +98,7 @@ def archive_task(id):
   return task.to_dict()
   
 @task_routes.route('/unarchive/<int:id>', methods=['PUT'])
-# @login_required
+@login_required
 def unarchive_task(id):
   """
   Unarchives a task and marks it ACTIVE
@@ -164,23 +158,47 @@ def update_comment(id):
     return comment.to_dict()
   return form.errors
 
-# @task_routes.route('/<int:id>/comments', methods=['POST'])
+
+
+# Tracking task routes here
+
+@task_routes.route('/track')
+@login_required
+def tracked_tasks():
+  """
+  Pulls tracked tasks data from db
+  """
+  tracks = TrackedTask.query.filter_by(user_id=current_user.id)
+  return {'tracks': [track.to_dict() for track in tracks]}
+
+@task_routes.route('/track/<int:id>', methods=['POST'])
 # @login_required
-# def add_comment(id):
-#   """
-#   Pulls task data from frontend and saves it to DB
-#   """
-#   form = CommentForm()
-#   form['csrf_token'].data = request.cookies['csrf_token']
-#   if form.validate_on_submit():
-#     comment = Comment(
-#       task_id=id,
-#       content=form.data['content'],
-#       user_id=current_user.id,
-#     )
-#     print(comment.task_id)
-#     db.session.add(comment)
-#     db.session.commit()
-#         # login_user(user)
-#     return comment.to_dict()
-#   return form.errors
+def track_a_task(id):
+  """
+  create a tracked task log in TrackedTask table
+  """
+  print('-=-=-=-=-=-=-=-=-=-=-=-=-===-=-', id)
+  print('-=-=-=-=-=-=-=-=-=-=-=-=-===-=-', current_user.id)
+  track = TrackedTask(
+    task_id=id,
+    user_id=current_user.id
+  )
+  db.session.add(track)
+  db.session.commit()
+  return track.to_dict()
+
+@task_routes.route('/untrack/<int:id>', methods=['DELETE'])
+# @login_required
+def untrack_a_task(id):
+  """
+  delete a tracked task log in TrackedTask table
+  """
+  tracks = TrackedTask.query.\
+    filter_by(task_id=id).\
+    filter_by(user_id=current_user.id).all()
+  
+  for track in tracks:
+    db.session.delete(track)
+  db.session.commit()
+  return { 'tracks' : [track.to_dict() for track in tracks] }
+

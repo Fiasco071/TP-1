@@ -1,4 +1,6 @@
 from flask.cli import AppGroup
+
+from app.seeds.tracked_tasks import seed_tracked_tasks, undo_tracked_tasks
 from .users import seed_users, undo_users
 from .tasks import seed_tasks, undo_tasks
 from .messages import seed_messages, undo_messages
@@ -24,6 +26,7 @@ def seed():
     seed_messages()
     seed_direct_messages()
     seed_employee_assignments()
+    seed_tracked_tasks()
 
 # Creates the `flask seed undo` command
 @seed_commands.command('undo')
@@ -36,3 +39,5 @@ def undo():
     undo_messages()
     undo_direct_messages()
     undo_employee_assignments()
+    undo_tracked_tasks()
+    

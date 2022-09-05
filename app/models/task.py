@@ -28,6 +28,7 @@ class Task(db.Model):
   thread = db.relationship('Thread', back_populates='task')
   message = db.relationship('Message', back_populates='task')
   employee_assignment = db.relationship('EmployeeAssignment', back_populates='task')
+  tracked = db.relationship('TrackedTask', back_populates='tasks')
 
 
   def to_dict(self):
