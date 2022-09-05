@@ -21,5 +21,9 @@ class DirectMessage(db.Model):
       'sender': self.sender,
       'receiver': self.receiver,
       'created_at': self.created_at,
-      'updated_at': self.updated_at
+      'updated_at': self.updated_at,
+      # 'users' : [usr.to_dict() for usr in self.users]
     }
+
+  #def __repr__(self):
+    # return r'<Update "%s" at %s>' % (self.content, self.timestamp)
