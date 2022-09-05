@@ -65,7 +65,7 @@ const DirectMessage = () => {
                         onChange={updateChatInput}
                     />
                     <div></div>
-                    <button id="dm-submit" type="submit">Send</button>
+                    <button id="dm-submit" type="submit" disabled={chatInput ? false : true}>Send</button>
                 </form>
             </div>
         </div>
