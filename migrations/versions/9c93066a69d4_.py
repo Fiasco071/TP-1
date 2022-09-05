@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: c6029ba74291
+Revision ID: 9c93066a69d4
 Revises: 
-Create Date: 2022-08-25 11:47:46.353217
+Create Date: 2022-09-02 15:20:17.983511
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'c6029ba74291'
+revision = '9c93066a69d4'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -41,7 +41,9 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(length=100), nullable=False),
     sa.Column('content', sa.String(length=1000), nullable=True),
-    sa.Column('due_date', sa.DateTime(), nullable=False),
+    sa.Column('due_date', sa.DateTime(), nullable=True),
+    sa.Column('active', sa.Boolean(), nullable=False),
+    sa.Column('complete', sa.Boolean(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.Column('updated_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
@@ -54,12 +56,23 @@ def upgrade():
     sa.Column('due_date', sa.Date(), nullable=True),
     sa.Column('content', sa.String(length=1000), nullable=True),
     sa.Column('creator_id', sa.Integer(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('project_id', sa.Integer(), nullable=True),
+    sa.Column('active', sa.Boolean(), nullable=False),
     sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.Column('updated_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
     sa.ForeignKeyConstraint(['creator_id'], ['users.id'], ),
     sa.ForeignKeyConstraint(['project_id'], ['projects.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('comments',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('content', sa.String(length=250), nullable=False),
+    sa.Column('task_id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
+    sa.Column('updated_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=True),
+    sa.ForeignKeyConstraint(['task_id'], ['tasks.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('employee_assignments',
@@ -111,6 +124,7 @@ def downgrade():
     op.drop_table('messages')
     op.drop_table('threads')
     op.drop_table('employee_assignments')
+    op.drop_table('comments')
     op.drop_table('tasks')
     op.drop_table('projects')
     op.drop_table('users')

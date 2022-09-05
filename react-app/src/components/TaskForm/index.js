@@ -15,11 +15,11 @@ const TaskForm = (props) => {
 
     const task = useSelector(state => state.task[props.editId])
 
-    console.log(task)
+    // console.log(task)
     let due_date_parsed = undefined;
     if (task !== undefined && task?.due_date !== null) {
-        console.log(task)
-        console.log('we got here')
+        // console.log(task)
+        // console.log('we got here')
         const test_date = new Date(task?.due_date)
         due_date_parsed = test_date.getFullYear() + '-' + (test_date.getMonth()+1) + '-' + (test_date.getDate() + 1 )
     }

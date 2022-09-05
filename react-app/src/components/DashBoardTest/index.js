@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons";
 // import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 import './style.css'
 import MyCalendar from '../MyCalendar';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { dataCallTasks } from '../../store/task';
 
 
 const DashBoardTest = () => {
@@ -12,6 +13,30 @@ const DashBoardTest = () => {
     const colorLoop = [0, 1, 2, 3, 4, 5]
     const colorLoop2 = [0, 1, 2, 3, 4, 5]
 
+    const dispatch = useDispatch();
+    const tasks = useSelector(state => Object.values(state?.task))
+    const filteredTasks = tasks?.filter(task => task?.active === true)
+    
+    // function dateFix() {
+    //     tasks?.forEach(task => {
+    //         let new_date = new Date(task?.due_date)
+    //         task.due_date = new_date
+    //     }
+    //     return;
+    // } 
+    
+
+    const calendarTasksList = tasks?.map(task => {
+        let data = {
+            start: new Date(task?.due_date),
+            end: new Date(task?.due_date),
+            title: task?.title
+        }
+        return (data)
+    })
+    useEffect(() => {
+        dispatch(dataCallTasks())
+    }, [dispatch])
 
     function shuffle(array) {
         let currentIndex = array.length, randomIndex;
@@ -32,9 +57,6 @@ const DashBoardTest = () => {
     }
     shuffle(colorLoop)
     shuffle(colorLoop2)
-
-    //   useEffect(()=> {
-    //   },[])
 
     return (
         <div className="dashb-wrapper">
@@ -58,13 +80,18 @@ const DashBoardTest = () => {
                                     <div className='recent-tasks-box'>
                                         <h2 className='widget-box-title-txt'>recently created tasks</h2>
                                         <div className='widget-content-wrapper'>
-                                            {loop.map((stuff, idx) => (
-                                                <div className='db-sing-task'>
-                                                    <p className='db-sing-task-title-txt'> a task to do</p>
+                                            {filteredTasks?.map((task, idx) => (
+                                                <div className='db-sing-task' key={idx}>
+                                                    <p className='db-sing-task-title-txt'>{task?.title.slice(0,18)}{task?.title.length> 18? '...' : ''}</p>
                                                     <div className='db-sing-task-tag-date'>
-                                                        <p className={`db-sing-task-tag-txt color-${colorLoop[idx]}`}>project1</p>
+                                                        <p className={`db-sing-task-tag-txt color-${colorLoop[idx]}`}>{task?.project_detail.title.slice(0,8)}</p>
                                                         <p className={`db-sing-task-tag-txt  color-${colorLoop2[idx]}`}>sometag</p>
-                                                        <p className='db-sing-task-dd-txt'> 2022-08-30</p>
+                                                        <p className='db-sing-task-dd-txt'> 
+                                                            {`${new Date(task?.due_date).getFullYear()} / 
+                                                            ${new Date(task?.due_date).getMonth() + 1 < 10 ? '0'+(new Date(task?.due_date).getMonth() + 1 ): new Date(task?.due_date).getMonth() + 1} /
+                                                            ${new Date(task?.due_date).getDate() < 10 ? '0'+new Date(task?.due_date).getDate() : new Date(task?.due_date).getDate()}`} 
+
+                                                        </p>
                                                     </div>
                                                 </div>
                                             ))}
@@ -88,7 +115,9 @@ const DashBoardTest = () => {
                                 </div>
                                 <div className='calendar-box'>
                                     <h2 className='widget-box-title-txt'>calendar</h2>
-                                    <MyCalendar />
+                                    {calendarTasksList.length > 0 && (
+                                        <MyCalendar events={calendarTasksList} />
+                                    )}
                                 </div>
 
                             </div>

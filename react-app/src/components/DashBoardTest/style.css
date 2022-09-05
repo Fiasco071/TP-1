@@ -118,6 +118,7 @@
     align-items: center;
     padding: 5px 0;
     margin-bottom: 5px;
+    justify-content: space-between;
 }
 
 .db-sing-task>p {

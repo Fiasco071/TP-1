@@ -15,16 +15,9 @@ import DirectMessage from "../DirectMessage";
 
 const Dashboard = () => {
     const dispatch = useDispatch();
-    const tasks = useSelector(state => Object.values(state.task))
-    const filteredTasks = tasks?.filter(task => task?.active === true)
     const [taskId, setTaskId] = useState();
     const [newTaskFlag, setNewTaskFlag] = useState(false)
     const [listView, setListView] = useState('list');
-
-
-    useEffect(() => {
-        dispatch(dataCallTasks())
-    }, [dispatch])
 
     const clickNewTask = () => {
         setNewTaskFlag(!newTaskFlag)
