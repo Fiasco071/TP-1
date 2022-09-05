@@ -6,7 +6,7 @@ import './style.css'
 import MyCalendar from '../MyCalendar';
 import { useDispatch, useSelector } from 'react-redux';
 import { dataCallTasks } from '../../store/task';
-
+import moment from 'moment'
 
 const DashBoardTest = () => {
     const loop = [1, 1, 1, 1, 1, 1]
@@ -28,10 +28,11 @@ const DashBoardTest = () => {
 
     const calendarTasksList = tasks?.map(task => {
         let data = {
-            start: new Date(task?.due_date),
-            end: new Date(task?.due_date),
+            start: moment(task?.due_date).add(1, 'days'),
+            end: moment(task?.due_date).add(1, 'days'),
             title: task?.title
         }
+        console.log(data.start)
         return (data)
     })
     useEffect(() => {
@@ -89,7 +90,7 @@ const DashBoardTest = () => {
                                                         <p className='db-sing-task-dd-txt'> 
                                                             {`${new Date(task?.due_date).getFullYear()} / 
                                                             ${new Date(task?.due_date).getMonth() + 1 < 10 ? '0'+(new Date(task?.due_date).getMonth() + 1 ): new Date(task?.due_date).getMonth() + 1} /
-                                                            ${new Date(task?.due_date).getDate() < 10 ? '0'+new Date(task?.due_date).getDate() : new Date(task?.due_date).getDate()}`} 
+                                                            ${new Date(task?.due_date).getDate() < 10 ? '0'+(new Date(task?.due_date).getDate() + 1): new Date(task?.due_date).getDate() + 1}`} 
 
                                                         </p>
                                                     </div>
