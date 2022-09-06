@@ -9,7 +9,7 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
-import Dashboard from './components/Dashboard';
+import DashBoardTest from './components/DashBoardTest';
 
 
 function App() {
@@ -46,7 +46,7 @@ function App() {
           <User />
         </ProtectedRoute>
         <ProtectedRoute path='/' exact={true} >
-          <Dashboard />
+          <DashBoardTest />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>

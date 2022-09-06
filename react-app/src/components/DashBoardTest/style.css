@@ -6,6 +6,11 @@
     --borderLineColor: #BCB6B6;
 }
 
+.log-out-button {
+    font-size: 40px;
+    color:white;
+}
+
 .dashb-wrapper {
     width: 1920px;
     height: 1080px;
@@ -200,21 +205,23 @@
     padding: 10px 25px;
 }
 
+.tracked-tl-box > .widget-box-title-txt {
+    margin: 15px 0  0 20px;
+}
+
 
 .tracked-tl-box {
     width: 1094px;
     height: 300px;
     border: 1px solid var(--borderLineColor);
     border-radius: 15px;
-    padding: 15px 15px;
+    /* padding: 15px 15px; */
     box-sizing: border-box;
 }
 
 .ttl-content {
     width: 1050px;
     height: 225px;
-    /* background-color: #4A12C2; */
-    margin: 10px 0 0 5px;
     padding: 5px 10px;
     font-size: 60px;
     color: #4A12C2;

@@ -29,9 +29,7 @@ const Dashboard = () => {
 
     return (
         <div className="dashboard">
-            <div className="log-out-button"
-                onClick={() => dispatch(logout())}
-            >logout</div>
+            
             <div className="dashb-hdr-blck"
                 onClick={() => setNewTaskFlag(false)}
             >
@@ -79,7 +77,6 @@ const Dashboard = () => {
             <div className="dashb-ftr-blck">
 
             </div>
-            <DashBoardTest />
         </div>
     )
 }
