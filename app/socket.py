@@ -14,9 +14,16 @@ else:
 
 socketio = SocketIO(cors_allowed_origins=origins)
 
+# Needs redux store
+# User adds up to 4 users on frontend, after adding first user, creates a room with 2 ids, user and receiver, and 2 null ids ->
+# Rooms Table (up to 4 users) ->
+# Messages (each user pulls the messages from that room), Messages get assigned to a Room ID
+
 @socketio.on("dm")
 def handle_chat(data):
-    emit("dm", data, broadcast=True)
+    direct_messages = DirectMessage.query.filter(DirectMessage.sender == current_user.id).all()
+    # print({'direct_messages': [dms.to_dict() for dms in direct_messages]})
+    emit("dm", {'direct_messages': [dms.to_dict() for dms in direct_messages]}, broadcast=True)
 
 
 ## Error when enabled ? Also might have to rearrange table, have to figure out roomid and groups
