@@ -6,23 +6,20 @@ class DirectMessage(db.Model):
 
   id = db.Column(db.Integer, primary_key=True)
   content = db.Column(db.String(1000), nullable=True)
-  sender = db.Column(db.Integer, nullable=False) # db.ForeignKey("users.id"),
-  receiver = db.Column(db.Integer, nullable=False) # db.ForeignKey("users.id"),
+  room_id = db.Column(db.Integer, db.ForeignKey("rooms.id"), nullable=False)
   # read_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
   created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
   updated_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
 
-  # user = db.relationship("User", back_populates="direct_message")
+  room = db.relationship("Room", back_populates="direct_messages")
 
   def to_dict(self):
     return {
       'id': self.id,
       'content': self.content,
-      'sender': self.sender,
-      'receiver': self.receiver,
+      'room_id': self.room_id,
       'created_at': self.created_at,
-      'updated_at': self.updated_at,
-      # 'users' : [usr.to_dict() for usr in self.users]
+      'updated_at': self.updated_at
     }
 
   #def __repr__(self):

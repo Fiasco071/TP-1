@@ -21,9 +21,10 @@ socketio = SocketIO(cors_allowed_origins=origins)
 
 @socketio.on("dm")
 def handle_chat(data):
-    direct_messages = DirectMessage.query.filter(DirectMessage.sender == current_user.id).all()
+    # direct_messages = DirectMessage.query.filter(DirectMessage.sender == current_user.id).all()
     # print({'direct_messages': [dms.to_dict() for dms in direct_messages]})
-    emit("dm", {'direct_messages': [dms.to_dict() for dms in direct_messages]}, broadcast=True)
+    # emit("dm", {'direct_messages': [dms.to_dict() for dms in direct_messages]}, broadcast=True)
+    emit("dm", data, broadcast=True)
 
 
 ## Error when enabled ? Also might have to rearrange table, have to figure out roomid and groups
