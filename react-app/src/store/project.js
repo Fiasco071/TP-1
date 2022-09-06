@@ -14,7 +14,6 @@ export const getAllProjects = () => async (dispatch) => {
     const response = await fetch(`/api/projects/`)
     if (response.ok) {
         const projects = await response.json()
-        console.log(projects, "<<<<<<<<<< Get all thunk for projects")
         dispatch(getProjects(projects))
     } else if (response.status < 500) {
         const data = await response.json();

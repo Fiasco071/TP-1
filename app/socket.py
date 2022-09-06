@@ -1,29 +1,30 @@
-import os
-from flask_socketio import SocketIO, emit, send
-from app.models import db, DirectMessage
-from flask_login import current_user
-from flask_socketio import join_room, leave_room
+# import os
+# from flask_socketio import SocketIO, emit, send
+# from app.models import db, DirectMessage
+# from flask_login import current_user
+# from flask_socketio import join_room, leave_room
 
-if os.environ.get("FLASK_ENV") == "production":
-    origins = [
-        "http://actual-app-url.herokuapp.com",
-        "https://actual-app-url.herokuapp.com"
-    ]
-else:
-    origins = "*"
+# if os.environ.get("FLASK_ENV") == "production":
+#     origins = [
+#         "http://actual-app-url.herokuapp.com",
+#         "https://actual-app-url.herokuapp.com"
+#     ]
+# else:
+#     origins = "*"
 
-socketio = SocketIO(cors_allowed_origins=origins)
+# socketio = SocketIO(cors_allowed_origins=origins)
 
 # Needs redux store
 # User adds up to 4 users on frontend, after adding first user, creates a room with 2 ids, user and receiver, and 2 null ids ->
 # Rooms Table (up to 4 users) ->
 # Messages (each user pulls the messages from that room), Messages get assigned to a Room ID
 
-@socketio.on("dm")
-def handle_chat(data):
-    direct_messages = DirectMessage.query.filter(DirectMessage.sender == current_user.id).all()
+# @socketio.on("dm")
+# def handle_chat(data):
+    # direct_messages = DirectMessage.query.filter(DirectMessage.sender == current_user.id).all()
     # print({'direct_messages': [dms.to_dict() for dms in direct_messages]})
-    emit("dm", {'direct_messages': [dms.to_dict() for dms in direct_messages]}, broadcast=True)
+    # emit("dm", {'direct_messages': [dms.to_dict() for dms in direct_messages]}, broadcast=True)
+    # emit("dm", data, broadcast=True)
 
 
 ## Error when enabled ? Also might have to rearrange table, have to figure out roomid and groups

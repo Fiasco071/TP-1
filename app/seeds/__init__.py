@@ -8,7 +8,7 @@ from .projects import seed_projects, undo_projects
 from .threads import seed_threads, undo_threads
 from .direct_messages import seed_direct_messages, undo_direct_messages
 from .employee_assignments import seed_employee_assignments, undo_employee_assignments
-
+from .rooms import seed_rooms, undo_rooms
 
 # Creates a seed group to hold our commands
 # So we can type `flask seed --help`
@@ -24,6 +24,7 @@ def seed():
     seed_tasks()
     seed_threads()
     seed_messages()
+    seed_rooms()
     seed_direct_messages()
     seed_employee_assignments()
     seed_tracked_tasks()
@@ -36,8 +37,8 @@ def undo():
     undo_projects()
     undo_tasks()
     undo_threads()
+    undo_rooms()
     undo_messages()
     undo_direct_messages()
     undo_employee_assignments()
     undo_tracked_tasks()
-    
