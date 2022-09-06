@@ -6,8 +6,14 @@
     --borderLineColor: #BCB6B6;
 }
 
+body {
+    font-family: Helvetica,sans-serif;
+}
+
 .log-out-button {
-    font-size: 40px;
+    font-size: 25px;
+    font-weight: bold;
+    /* letter-spacing: 2px; */
     color:white;
 }
 
@@ -33,6 +39,8 @@
     background-color: var(--navBarBG);
     width: 195px;
     height: 1030px;
+    padding: 15px 20px;
+    box-sizing: border-box;
 }
 
 .dashb-content {

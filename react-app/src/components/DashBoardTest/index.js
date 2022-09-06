@@ -16,14 +16,16 @@ const DashBoardTest = () => {
     const loop = [1, 1, 1, 1, 1, 1]
     const colorLoop = [0, 1, 2, 3, 4, 5]
     const colorLoop2 = [0, 1, 2, 3, 4, 5]
+    const [trackedList, setTrackedList] = useState([])
 
     const dispatch = useDispatch();
     const [dbFilter, setDbFilter] = useState('dashboard')
-    const trackedList = useSelector(state => state.session.user.tracked_tasks)
+    const [taskID, setTaskID] = useState();
+    // const trackedList = useSelector(state => state.session.user.tracked_tasks)
     const tasks = useSelector(state => Object.values(state?.task))
     const filteredTasks = tasks?.filter(task => task?.active === true)
 
-    console.log(trackedList)
+    // console.log(trackedList)
 
     const isToday = (date) => {
         const today = new Date()
@@ -48,8 +50,16 @@ const DashBoardTest = () => {
     })
     useEffect(() => {
         dispatch(dataCallTasks())
-    }, [dispatch])
+        tracked()
+    }, [dispatch, dbFilter])
 
+    const tracked = async () => {
+        const response = await fetch('/api/tasks/track')
+        const data = await response.json();
+        setTrackedList(data.tracks)
+    }
+
+    // console.log(trackedList)
     function shuffle(array) {
         let currentIndex = array.length, randomIndex;
 
@@ -70,7 +80,10 @@ const DashBoardTest = () => {
     shuffle(colorLoop)
     shuffle(colorLoop2)
 
-
+    const taskCardClick = (id) => {
+        setDbFilter('tasks')
+        setTaskID(id)
+    }
 
     // let come up with a logic for slider 
     // there will be 3 cases
@@ -95,7 +108,7 @@ const DashBoardTest = () => {
                 <div className='dashb-nav-bar'>
                     <div className="log-out-button"
                         onClick={() => dispatch(logout())}>
-                            <FontAwesomeIcon icon={faPowerOff} />
+                            log out
                     </div>
                 </div>
                 <div className='dashb-content'>
@@ -170,7 +183,9 @@ const DashBoardTest = () => {
                                             <FontAwesomeIcon icon={faCaretLeft} />
                                             <div className='ttl-content-blk'>
                                                 {trackedList?.map(task => (
-                                                    <div className='ttl-card-box'>
+                                                    <div className='ttl-card-box'
+                                                        onClick={() => taskCardClick(task.task_detail.id)}
+                                                    >
                                                         <img
                                                             className='ttl-card-img'
                                                             src={img1} />
@@ -196,7 +211,7 @@ const DashBoardTest = () => {
                         </div>
                     )}
                     {dbFilter === 'tasks' && (
-                        <Dashboard />
+                        <Dashboard tId={taskID}/>
                     )}
                 </div>
             </div>
