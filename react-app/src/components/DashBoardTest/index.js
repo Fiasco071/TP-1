@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons";
+import { faCaretLeft, faCaretRight, faList } from "@fortawesome/free-solid-svg-icons";
 // import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 import './style.css'
 import MyCalendar from '../MyCalendar';
@@ -8,27 +8,31 @@ import { useDispatch, useSelector } from 'react-redux';
 import { dataCallTasks } from '../../store/task';
 import moment from 'moment'
 
+import img1 from '../../img/pj1.jpg';
+
 const DashBoardTest = () => {
     const loop = [1, 1, 1, 1, 1, 1]
     const colorLoop = [0, 1, 2, 3, 4, 5]
     const colorLoop2 = [0, 1, 2, 3, 4, 5]
 
     const dispatch = useDispatch();
+    const trackedList = useSelector(state => state.session.user.tracked_tasks)
     const tasks = useSelector(state => Object.values(state?.task))
     const filteredTasks = tasks?.filter(task => task?.active === true)
-    
-    
+
+    console.log(trackedList)
+
     const isToday = (date) => {
         const today = new Date()
         return date.getFullYear() == today.getFullYear() &&
-        date.getMonth() == today.getMonth() &&
-        date.getDate() + 1 == today.getDate()
+            date.getMonth() == today.getMonth() &&
+            date.getDate() + 1 == today.getDate()
     }
-    
+
     const dueTodayTasks = tasks?.filter(task => {
         const date = new Date(task?.due_date)
         return isToday(date)
-    }) 
+    })
 
 
     const calendarTasksList = tasks?.map(task => {
@@ -63,6 +67,24 @@ const DashBoardTest = () => {
     shuffle(colorLoop)
     shuffle(colorLoop2)
 
+
+
+    // let come up with a logic for slider 
+    // there will be 3 cases
+    // 1. less than 5
+    // 2. more than 5
+    // 3. 5
+    
+    // there are 24 tracked tasks
+
+    // we can create a state variable to hold something [0]  Intialize it with 0
+    // if the list length is longer than 5 than ...
+    //     we can set it to 1 and display first 5  -> update [5]
+    //     we repeat this while variable[] < list length
+    
+
+
+
     return (
         <div className="dashb-wrapper">
             <div className='dashb-header'></div>
@@ -87,14 +109,14 @@ const DashBoardTest = () => {
                                         <div className='widget-content-wrapper'>
                                             {filteredTasks?.map((task, idx) => (
                                                 <div className='db-sing-task' key={idx}>
-                                                    <p className='db-sing-task-title-txt'>{task?.title.slice(0,18)}{task?.title.length> 18? '...' : ''}</p>
+                                                    <p className='db-sing-task-title-txt'>{task?.title.slice(0, 18)}{task?.title.length > 18 ? '...' : ''}</p>
                                                     <div className='db-sing-task-tag-date'>
-                                                        <p className={`db-sing-task-tag-txt color-${colorLoop[idx]}`}>{task?.project_detail.title.slice(0,8)}</p>
+                                                        <p className={`db-sing-task-tag-txt color-${colorLoop[idx]}`}>{task?.project_detail.title.slice(0, 8)}</p>
                                                         <p className={`db-sing-task-tag-txt  color-${colorLoop2[idx]}`}>sometag</p>
-                                                        <p className='db-sing-task-dd-txt'> 
+                                                        <p className='db-sing-task-dd-txt'>
                                                             {`${new Date(task?.due_date).getFullYear()} / 
-                                                            ${new Date(task?.due_date).getMonth() + 1 < 10 ? '0'+(new Date(task?.due_date).getMonth() + 1 ): new Date(task?.due_date).getMonth() + 1} /
-                                                            ${new Date(task?.due_date).getDate() < 10 ? '0'+(new Date(task?.due_date).getDate() + 1): new Date(task?.due_date).getDate() + 1}`} 
+                                                            ${new Date(task?.due_date).getMonth() + 1 < 10 ? '0' + (new Date(task?.due_date).getMonth() + 1) : new Date(task?.due_date).getMonth() + 1} /
+                                                            ${new Date(task?.due_date).getDate() < 10 ? '0' + (new Date(task?.due_date).getDate() + 1) : new Date(task?.due_date).getDate() + 1}`}
 
                                                         </p>
                                                     </div>
@@ -107,14 +129,14 @@ const DashBoardTest = () => {
                                         <div className='widget-content-wrapper'>
                                             {dueTodayTasks?.map((task, idx) => (
                                                 <div className='db-sing-task' key={idx}>
-                                                    <p className='db-sing-task-title-txt'>{task?.title.slice(0,18)}{task?.title.length> 18? '...' : ''}</p>
+                                                    <p className='db-sing-task-title-txt'>{task?.title.slice(0, 18)}{task?.title.length > 18 ? '...' : ''}</p>
                                                     <div className='db-sing-task-tag-date'>
-                                                        <p className={`db-sing-task-tag-txt color-${colorLoop[idx]}`}>{task?.project_detail.title.slice(0,8)}</p>
+                                                        <p className={`db-sing-task-tag-txt color-${colorLoop[idx]}`}>{task?.project_detail.title.slice(0, 8)}</p>
                                                         <p className={`db-sing-task-tag-txt  color-${colorLoop2[idx]}`}>sometag</p>
-                                                        <p className='db-sing-task-dd-txt'> 
+                                                        <p className='db-sing-task-dd-txt'>
                                                             {`${new Date(task?.due_date).getFullYear()} / 
-                                                            ${new Date(task?.due_date).getMonth() + 1 < 10 ? '0'+(new Date(task?.due_date).getMonth() + 1 ): new Date(task?.due_date).getMonth() + 1} /
-                                                            ${new Date(task?.due_date).getDate() < 10 ? '0'+(new Date(task?.due_date).getDate() + 1): new Date(task?.due_date).getDate() + 1}`} 
+                                                            ${new Date(task?.due_date).getMonth() + 1 < 10 ? '0' + (new Date(task?.due_date).getMonth() + 1) : new Date(task?.due_date).getMonth() + 1} /
+                                                            ${new Date(task?.due_date).getDate() < 10 ? '0' + (new Date(task?.due_date).getDate() + 1) : new Date(task?.due_date).getDate() + 1}`}
 
                                                         </p>
                                                     </div>
@@ -136,6 +158,29 @@ const DashBoardTest = () => {
                             <div className='tracker-box'>
                                 <div className='tracked-tl-box'>
                                     <h2 className='widget-box-title-txt'>tracked tasks</h2>
+
+                                    <div className='ttl-content'>
+                                        <FontAwesomeIcon icon={faCaretLeft} />
+                                        <div className='ttl-content-blk'>
+                                            {trackedList?.map(task => (
+                                                <div className='ttl-card-box'>
+                                                    <img
+                                                        className='ttl-card-img'
+                                                        src={img1} />
+                                                    <h2 className='ttl-card-box-title'>
+                                                        {task.task_detail.title.slice(0, 8)}{task.task_detail.title.length > 6 ? '...' : ''}
+                                                    </h2>
+                                                    <div className='dd-txt-wrapper'>
+                                                        <h2 className='ttl-card-box-dd'>
+                                                            {moment(task.task_detail.due_date).format('MMM Do')}
+                                                        </h2>
+                                                    </div>
+                                                </div>
+                                            ))}
+
+                                        </div>
+                                        <FontAwesomeIcon icon={faCaretRight} />
+                                    </div>
 
                                 </div>
                             </div>

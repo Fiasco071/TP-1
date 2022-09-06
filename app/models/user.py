@@ -38,7 +38,8 @@ class User(db.Model, UserMixin):
             'username': self.username,
             'email': self.email,
             'clearance': self.clearance,
-            'projects' : [proj.to_dict() for proj in self.projects]
+            'projects' : [proj.to_dict() for proj in self.projects],
+            'tracked_tasks' : [task.to_dict() for task in self.tracked]
         }
 
     def to_dict_username(self):

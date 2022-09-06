@@ -28,7 +28,7 @@ class Task(db.Model):
   thread = db.relationship('Thread', back_populates='task')
   message = db.relationship('Message', back_populates='task')
   employee_assignment = db.relationship('EmployeeAssignment', back_populates='task')
-  tracked = db.relationship('TrackedTask', back_populates='tasks')
+  tracked = db.relationship('TrackedTask', back_populates='task')
 
 
   def to_dict(self):
@@ -43,6 +43,7 @@ class Task(db.Model):
       'active': self.active,
       'comments': [comment.to_dict() for comment in self.comments],
       'project_detail' : self.project.to_dict_project_name(),
+      'tracked' : [track.to_dict_task() for track in self.tracked],
       'created_at': self.created_at,
       'updated_at': self.updated_at
     }
