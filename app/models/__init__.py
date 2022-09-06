@@ -5,6 +5,7 @@ from .message import Message
 from .project import Project
 from .employee_assignment import EmployeeAssignment
 from .thread import Thread
+from .room import Room
 from .direct_message import DirectMessage
 from .comment import Comment
 from .track_task import TrackedTask

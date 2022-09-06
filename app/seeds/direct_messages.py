@@ -4,7 +4,7 @@ from app.models import db, DirectMessage
 def seed_direct_messages():
     direct_message_1 = DirectMessage(
         content="hello this is content for direct messaging",
-        sender=1, receiver=1
+        room_id = 1
     )
 
     for direct_message in [direct_message_1]:
