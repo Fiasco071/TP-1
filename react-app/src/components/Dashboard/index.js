@@ -13,9 +13,9 @@ import LeftPanel from "./LeftPanel";
 import DashBoardTest from "../DashBoardTest";
 import DirectMessage from "../DirectMessage";
 
-const Dashboard = () => {
+const Dashboard = ({tId}) => {
     const dispatch = useDispatch();
-    const [taskId, setTaskId] = useState();
+    const [taskId, setTaskId] = useState(tId);
     const [newTaskFlag, setNewTaskFlag] = useState(false)
     const [listView, setListView] = useState('list');
 
