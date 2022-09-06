@@ -23,6 +23,7 @@ const DirectMessage = () => {
         //   });
 
         socket.on("dm", (chat) => {
+            console.log(chat)
             setMessages(messages => [...messages, chat])
         })
 
