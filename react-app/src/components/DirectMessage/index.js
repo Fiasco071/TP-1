@@ -9,7 +9,7 @@ const DirectMessage = () => {
     const [chatInput, setChatInput] = useState("");
     const [messages, setMessages] = useState([]);
     const user = useSelector(state => state.session.user)
-    const [recipient, setRecipient] = useState(2)  // useState for recipients id, quick: dropdown selector, best: input with autocomplete
+    const [recipient, setRecipient] = useState()  // useState for recipients id, quick: dropdown selector, best: input with autocomplete
 
 
 
@@ -23,7 +23,6 @@ const DirectMessage = () => {
         //   });
 
         socket.on("dm", (chat) => {
-            console.log(chat)
             setMessages(messages => [...messages, chat])
         })
 
