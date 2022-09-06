@@ -1,7 +1,7 @@
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown, faCheck, faPaperclip, faFolderTree, faLink, faThumbsUp, faClock, faEllipsis, faX, faLock, faWrench } from "@fortawesome/free-solid-svg-icons";
-import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
+import { faCaretDown, faCheck, faPaperclip, faFolderTree, faLink, faThumbsUp, faClock, faEllipsis, faX, faLock, faWrench, faStar as filledStar } from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare, faStar } from "@fortawesome/free-regular-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import './style.css'
 import TaskForm from "../../TaskForm";
@@ -13,16 +13,24 @@ import CommentForm from "../../CommentForm";
 const RightPanel = ({ id }) => {
 
     const task = useSelector(state => state.task[id])
+    const taskTracking = useSelector(state => state.task[id]?.tracked[0])
     let looptime2 = [1, 1, 1, 1, 1]
     const [newTaskFlag, setNewTaskFlag] = useState(false)
     const [commentList, setCommentList] = useState([])
     const [commentBoxToggle, setCommentBoxToggle] = useState(false)
+    const [tracked, setTracked] = useState(false)
     const dispatch = useDispatch()
     
     useEffect(() => {
         setCommentList(task?.comments?.reverse())
     }, [id, task])
 
+    // console.log(task.tracked[0].is_tracked)
+    if (!task?.tracked[0]) {
+        console.log('not trackin this one')
+    } else {
+        console.log('tracking this one')
+    }
 
     const [content, setContent] = useState('');
 
@@ -36,31 +44,21 @@ const RightPanel = ({ id }) => {
             setCommentBoxToggle(!commentBoxToggle)
         }
     }
-    // const addAComment = async (e) => {
-    //     e.preventDefault();
-    //     let url = `/api/tasks/${id}/comments/new`
-    //     let data = {
-    //         content,
-    //         task_id : id,
-    //     }
-    //     let options = {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify(data)
-    //     }
-
-    //     const createComment = await fetch(url, options)
-    //     dispatch(queryATask(id))
-    //     setCommentBoxToggle(false)
-    // }
 
     const updateAComment = async (e) => {
         e.preventDefault();
         // let url = `/api/tasks/comments/${}`
     }
     //////////////////////////////
+    const trackTask = async () => {
+        await fetch(`/api/tasks/track/${id}`, {method : 'POST'})
+        dispatch(queryATask(id))
+    }
+
+    const untrackTask = async () => {
+        await fetch(`/api/tasks/untrack/${id}`, {method : 'DELETE'})
+        dispatch(queryATask(id))
+    }
 
     return (
         <div className="right-panel">
@@ -84,7 +82,14 @@ const RightPanel = ({ id }) => {
                 </div>
             </div>
             <div className="r-p-task-detail-type-bar">
-                <FontAwesomeIcon className="r-p-hdr-button" icon={faLock} />
+                {taskTracking != undefined 
+                    ? <FontAwesomeIcon className="r-p-hdr-button" 
+                    icon={filledStar} 
+                    onClick={() => untrackTask()}/>
+                    : <FontAwesomeIcon className="r-p-hdr-button" 
+                    icon={faStar} 
+                    onClick={() => trackTask()}/>
+                }
                 This task is private to you
             </div>
             <div className="r-p-task-detail-content-box">
