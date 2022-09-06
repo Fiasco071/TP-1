@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons";
+import { faCaretLeft, faCaretRight, faList } from "@fortawesome/free-solid-svg-icons";
 // import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 import './style.css'
 import MyCalendar from '../MyCalendar';
@@ -66,6 +66,24 @@ const DashBoardTest = () => {
     }
     shuffle(colorLoop)
     shuffle(colorLoop2)
+
+
+
+    // let come up with a logic for slider 
+    // there will be 3 cases
+    // 1. less than 5
+    // 2. more than 5
+    // 3. 5
+    
+    // there are 24 tracked tasks
+
+    // we can create a state variable to hold something [0]  Intialize it with 0
+    // if the list length is longer than 5 than ...
+    //     we can set it to 1 and display first 5  -> update [5]
+    //     we repeat this while variable[] < list length
+    
+
+
 
     return (
         <div className="dashb-wrapper">
