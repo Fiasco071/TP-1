@@ -1,19 +1,28 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { io } from 'socket.io-client';
+import { getAllRooms, createRoom, deleteRoom } from "../../store/room";
 import './style.css';
 
 let socket;
 
 const DirectMessage = () => {
+    const dispatch = useDispatch()
     const [chatInput, setChatInput] = useState("");
     const [messages, setMessages] = useState([]);
     const user = useSelector(state => state.session.user)
+    // const users = useSelector(state => Object.values(state?.users))
+    const rooms = useSelector(state => Object.values(state?.room))
     const [recipient, setRecipient] = useState()  // useState for recipients id, quick: dropdown selector, best: input with autocomplete
 
-
+    // console.log(users, "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<USERS")
 
     useEffect(() => {
+        dispatch(getAllRooms())
+    }, [dispatch])
+
+    useEffect(() => {
+
         socket = io();
 
         // io.on("connection", socket => {

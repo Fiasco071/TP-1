@@ -46,6 +46,3 @@ class User(db.Model, UserMixin):
         return {
             'username': self.username
         }
-
-    def all_users(self):
-        pass
