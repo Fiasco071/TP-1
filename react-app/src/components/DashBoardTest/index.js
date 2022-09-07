@@ -48,10 +48,13 @@ const DashBoardTest = () => {
         }
         return (data)
     })
+
+    const [sliderStart, setSStart] = useState(0)
+    const [sliderEnd, setSEnd] = useState(5)
     useEffect(() => {
         dispatch(dataCallTasks())
         tracked()
-    }, [dispatch, dbFilter])
+    }, [dispatch, dbFilter, sliderStart. sliderEnd])
 
     const tracked = async () => {
         const response = await fetch('/api/tasks/track')
@@ -59,7 +62,31 @@ const DashBoardTest = () => {
         setTrackedList(data.tracks)
     }
 
-    // console.log(trackedList)
+    
+    //sliderLButton will calculate sliderStart and sliderEnd
+    const sliderLButton = () => {
+        if (sliderStart - 5 < 0) {
+            // Calculate the blockCount to be used as a multiplication factor on calculating the last block to show
+            let blockCount = parseInt(trackedList.length / 5) * 5
+            setSStart(blockCount)
+            setSEnd(blockCount+5)
+            console.log(sliderStart, sliderEnd)
+        } else {
+            setSStart(sliderStart - 5)
+            setSEnd(sliderEnd - 5)
+        }
+    }
+    const sliderRButton = () => {
+        if (sliderStart + 5 > trackedList.length) {
+            setSStart(0)
+            setSEnd(5)    
+        } else {
+            setSStart(sliderStart + 5)
+            setSEnd(sliderEnd + 5)
+        }
+    }
+
+
     function shuffle(array) {
         let currentIndex = array.length, randomIndex;
 
@@ -180,9 +207,10 @@ const DashBoardTest = () => {
                                         <h2 className='widget-box-title-txt'>tracked tasks</h2>
 
                                         <div className='ttl-content'>
-                                            <FontAwesomeIcon icon={faCaretLeft} />
+                                            <FontAwesomeIcon icon={faCaretLeft} 
+                                            onClick={() => sliderLButton()}/>
                                             <div className='ttl-content-blk'>
-                                                {trackedList?.map(task => (
+                                                {trackedList.slice(sliderStart,sliderEnd)?.map(task => (
                                                     <div className='ttl-card-box'
                                                         onClick={() => taskCardClick(task.task_detail.id)}
                                                     >
@@ -201,7 +229,9 @@ const DashBoardTest = () => {
                                                 ))}
 
                                             </div>
-                                            <FontAwesomeIcon icon={faCaretRight} />
+                                            <FontAwesomeIcon icon={faCaretRight} 
+                                            onClick={() => sliderRButton()}
+                                            />
                                         </div>
 
                                     </div>
