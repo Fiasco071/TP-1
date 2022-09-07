@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretLeft, faCaretRight, faPowerOff } from "@fortawesome/free-solid-svg-icons";
+import { faCaretLeft, faCaretRight, faCaretDown } from "@fortawesome/free-solid-svg-icons";
 // import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 import './style.css'
 import MyCalendar from '../MyCalendar';
@@ -54,7 +54,7 @@ const DashBoardTest = () => {
     useEffect(() => {
         dispatch(dataCallTasks())
         tracked()
-    }, [dispatch, dbFilter, sliderStart. sliderEnd])
+    }, [dispatch, dbFilter, sliderStart.sliderEnd])
 
     const tracked = async () => {
         const response = await fetch('/api/tasks/track')
@@ -62,14 +62,14 @@ const DashBoardTest = () => {
         setTrackedList(data.tracks)
     }
 
-    
+
     //sliderLButton will calculate sliderStart and sliderEnd
     const sliderLButton = () => {
         if (sliderStart - 5 < 0) {
             // Calculate the blockCount to be used as a multiplication factor on calculating the last block to show
             let blockCount = parseInt(trackedList.length / 5) * 5
             setSStart(blockCount)
-            setSEnd(blockCount+5)
+            setSEnd(blockCount + 5)
             console.log(sliderStart, sliderEnd)
         } else {
             setSStart(sliderStart - 5)
@@ -79,7 +79,7 @@ const DashBoardTest = () => {
     const sliderRButton = () => {
         if (sliderStart + 5 > trackedList.length) {
             setSStart(0)
-            setSEnd(5)    
+            setSEnd(5)
         } else {
             setSStart(sliderStart + 5)
             setSEnd(sliderEnd + 5)
@@ -135,7 +135,7 @@ const DashBoardTest = () => {
                 <div className='dashb-nav-bar'>
                     <div className="log-out-button"
                         onClick={() => dispatch(logout())}>
-                            log out
+                        log out
                     </div>
                 </div>
                 <div className='dashb-content'>
@@ -207,10 +207,10 @@ const DashBoardTest = () => {
                                         <h2 className='widget-box-title-txt'>tracked tasks</h2>
 
                                         <div className='ttl-content'>
-                                            <FontAwesomeIcon icon={faCaretLeft} 
-                                            onClick={() => sliderLButton()}/>
+                                            <FontAwesomeIcon icon={faCaretLeft}
+                                                onClick={() => sliderLButton()} />
                                             <div className='ttl-content-blk'>
-                                                {trackedList.slice(sliderStart,sliderEnd)?.map(task => (
+                                                {trackedList.slice(sliderStart, sliderEnd)?.map(task => (
                                                     <div className='ttl-card-box'
                                                         onClick={() => taskCardClick(task.task_detail.id)}
                                                     >
@@ -229,19 +229,52 @@ const DashBoardTest = () => {
                                                 ))}
 
                                             </div>
-                                            <FontAwesomeIcon icon={faCaretRight} 
-                                            onClick={() => sliderRButton()}
+                                            <FontAwesomeIcon icon={faCaretRight}
+                                                onClick={() => sliderRButton()}
                                             />
                                         </div>
 
                                     </div>
                                 </div>
                             </div>
-                            <div className='project-box'></div>
+                            <div className='project-box'>
+                                <div className='project-box-content'>
+                                    <h2 className='widget-box-title-txt'>projects</h2>
+                                    <div className='single-project-box'>
+                                        {/* small project box */}
+                                        <h2 className='project-box-title-txt'>Java Project</h2>
+                                        <FontAwesomeIcon icon={faCaretDown} className='project-collapse-button' />
+                                    </div>
+                                    {/* DETAIL project box */}
+                                    <div className='single-project-box'>
+                                        {/* small project box */}
+                                        <div className='db-project-bigbox-str'>
+                                            <div className='project-boxB-img-wrapper'>
+                                                <img className='db-project-img' src={img1} />
+                                                <div>
+                                                    <h2 className='project-boxB-title-txt'>Python Project</h2>
+                                                    <div>
+                                                        <p className='project-boxB-content-txt'> PRIORITY</p>
+                                                        <p className='project-boxB-content-txt'> STATUS</p>
+                                                        <p className='project-boxB-content-txt'> 2022/09/08</p>
+                                                        <p className='project-boxB-content-txt'> COMPLETION</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className='collab-box'>
+                                                <p className='project-boxB-content-txt'> </p>
+                                            </div>
+                                        </div>
+
+                                        <div />
+                                        {/* <FontAwesomeIcon icon={faCaretDown} className='project-collapse-button' /> */}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     )}
                     {dbFilter === 'tasks' && (
-                        <Dashboard tId={taskID}/>
+                        <Dashboard tId={taskID} />
                     )}
                 </div>
             </div>
