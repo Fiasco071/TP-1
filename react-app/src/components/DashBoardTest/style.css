@@ -103,12 +103,6 @@ body {
     box-sizing: border-box;
 }
 
-.project-box {
-    width: 600px;
-    height: 980px;
-    background-color: white;
-}
-
 /* task list css rules */
 
 .recent-tasks-box {
@@ -291,4 +285,94 @@ body {
     align-items: flex-end;
     position: relative;
     left: 10px;
+}
+
+/* PROJECT BOX STARTS HERE */
+
+
+.project-box {
+    width: 600px;
+    height: 980px;
+    padding: 15px 15px;
+    box-sizing: border-box;
+}
+
+.project-box-content {
+    border-radius: 15px;
+    border: 1px solid var(--borderLineColor);
+    width: 100%;
+    height: 98.7%;
+    padding: 5px 15px;
+    box-sizing: border-box;
+}
+
+.single-project-box {
+    border-radius: 10px;
+    border: 1px solid var(--borderLineColor);
+    min-height: 45px;
+}
+
+.single-project-box {
+    margin-top:15px;
+    padding: 0 20px 10px 20px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+}
+
+.project-box-title-txt {
+    margin: 0;
+    position: relative;
+    top:10px;
+    font-size: 20px;
+    color: var(--fontColorGrey);
+}
+
+.project-collapse-button {
+    margin-top: 12px;
+}
+.db-project-bigbox-str {
+    display: flex;
+    flex-direction: column;
+}
+
+.db-project-img {
+    /* border: 4px solid rgb(100, 99, 99); */
+    border-radius: 10px 0 0 0;
+    position: relative;
+    right: 20px;
+    width: 280px;
+    height: 150px;
+}
+
+.project-boxB-title-txt {
+    margin:15px 0;
+    text-shadow: -1px -1px 1px var(--navBarBG), -1px 1px 1px  var(--navBarBG), 1px -1px 1px  var(--navBarBG), 1px 1px 1px  var(--navBarBG);
+    border-bottom: 5px solid var(--navBarBG);
+
+}
+
+.project-boxB-content-txt {
+    color: var(--fontColorGreyFaded);
+    font-weight: bold;
+    font-size: 18px;
+    margin:5px 15px;
+}
+
+.collab-box {
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 5px solid var(--navBarBG);
+    height: 50px;
+    width: 110%;
+}
+
+.collab-box > p{
+    color: black;
+    position: relative;
+    right: 15px;
+}
+
+.project-boxB-img-wrapper {
+    display: flex;
 }
