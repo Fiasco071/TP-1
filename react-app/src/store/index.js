@@ -4,9 +4,11 @@ import session from './session';
 import task from './task';
 import project from './project';
 import room from './room';
+import users from './user';
 
 const rootReducer = combineReducers({
   session,
+  users,
   task,
   project,
   room

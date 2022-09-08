@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from 'socket.io-client';
 import { getAllRooms, createRoom, deleteRoom } from "../../store/room";
+import { getAllProjects } from "../../store/project";
+import { getAllUsers } from "../../store/user";
 import './style.css';
 
 let socket;
@@ -11,14 +13,16 @@ const DirectMessage = () => {
     const [chatInput, setChatInput] = useState("");
     const [messages, setMessages] = useState([]);
     const user = useSelector(state => state.session.user)
-    // const users = useSelector(state => Object.values(state?.users))
+    const users = useSelector(state => Object.values(state?.users))
     const rooms = useSelector(state => Object.values(state?.room))
+    const [chat, setChat] = useState(false)
     const [recipient, setRecipient] = useState()  // useState for recipients id, quick: dropdown selector, best: input with autocomplete
 
-    // console.log(users, "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<USERS")
+    // console.log(rooms, users, "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<USERS")
 
     useEffect(() => {
         dispatch(getAllRooms())
+        dispatch(getAllUsers())
     }, [dispatch])
 
     useEffect(() => {
@@ -43,6 +47,8 @@ const DirectMessage = () => {
     const updateChatInput = (e) => {
         setChatInput(e.target.value)
     };
+
+    // need use state to set window active, once active, need a form to add users to a chat, need tabs for rooms
 
     const sendChat = (e) => {
         e.preventDefault()

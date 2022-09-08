@@ -12,7 +12,7 @@ export const getAllRooms = () => async (dispatch) => {
     const response = await fetch(`/api/chat/`)
     if (response.ok) {
         const rooms = await response.json()
-        console.log(rooms, "<<<<<<<<<<<<<<<<<<<<<<<<<<<<redux rooms")
+        // console.log(rooms, "<<<<<<<<<<<<<<<<<<<<<<<<<<<<redux rooms")
         dispatch(getRooms(rooms))
     } else if (response.status < 500) {
         const data = await response.json();
