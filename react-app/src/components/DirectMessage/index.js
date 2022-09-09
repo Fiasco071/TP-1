@@ -29,12 +29,6 @@ const DirectMessage = () => {
 
         socket = io();
 
-        // io.on("connection", socket => {
-        //     socket.on("private message", (anotherSocketId, msg) => {
-        //       socket.to(anotherSocketId).emit("private message", socket.id, msg);
-        //     });
-        //   });
-
         socket.on("dm", (chat) => {
             setMessages(messages => [...messages, chat])
         })
@@ -52,7 +46,7 @@ const DirectMessage = () => {
 
     const sendChat = (e) => {
         e.preventDefault()
-        socket.emit("dm", { id: user.id, user: user.username, content: chatInput }); // include recipient id here
+        socket.emit("dm", { id: user.id, user: user.username, content: chatInput, roomid: 1 }); // include recipient id here
         setChatInput("")
     }
 
@@ -71,15 +65,12 @@ const DirectMessage = () => {
                 </div>
             </div>
             <div id="dm-chatbox">
-                {messages.map((message, ind) => (
-                    <div key={ind} id="dm-chat">
-                        <p id="dm-msg">
-                            <div>{`${message.user}: ${message.content}`}</div>
-                        </p>
-                    </div>
+            <div>
+                {messages?.map((message, ind) => (
+                    <div key={ind}>{`${message.user}: ${message.content}`}</div>
                 ))}
             </div>
-
+            </div>
             <div id="dm-chat-form">
                 <form id="dm-form" onSubmit={sendChat}>
                     <input

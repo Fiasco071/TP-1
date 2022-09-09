@@ -19,7 +19,7 @@ class User(db.Model, UserMixin):
     employee_assignment = db.relationship('EmployeeAssignment', back_populates='user')
     comments = db.relationship('Comment', back_populates='comment_owner')
     tracked = db.relationship('TrackedTask', back_populates='tt_owner')
-    # direct_message = db.relationship('DirectMessage', back_populates='user')
+    direct_messages = db.relationship('DirectMessage', back_populates='user')
 
     @property
     def password(self):

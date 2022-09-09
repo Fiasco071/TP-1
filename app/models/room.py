@@ -25,3 +25,6 @@ class Room(db.Model):
       'updated_at': self.updated_at,
       'direct_messages': [dm.to_dict() for dm in self.direct_messages]
     }
+
+
+# room_users -> room_id 1, user 1, 
