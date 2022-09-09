@@ -9,7 +9,6 @@ user_routes = Blueprint('users', __name__)
 @login_required
 def users():
     users = User.query.all()
-    print('-=-=-=-=-=-=-=-=-=-=-=-==-=-==-=-=-=-=-=-=',current_user.id)
     return {'users': [user.to_dict() for user in users]}
 
 
